@@ -1,0 +1,52 @@
+---
+title: ''
+title2: M I Jubair
+description: home page
+keywords: mohammad imrul jubair, visualization, graphics, computer vision
+url: http://imruljubair.github.io
+baseurl: 
+google_analytics:
+repo: http://imruljubair.github.io
+disqus_shortname:
+twitter_username:
+comments: false
+permalink: "/:year/:title/"
+markdown: kramdown
+highlighter: rouge
+source: "./"
+destination: "./_site"
+sass:
+  sass_dir: assets/scss
+  style: compressed
+author:
+  name: Mohammad Imrul Jubair
+  job: Faculty
+  bio: "."
+  thumb: "/images/author.jpg"
+  email: mohammadimrul.jubair@ucalgary.ca
+  url: http://imruljubair.github.io
+og_locale: en_US
+gems:
+- bourbon
+- jekyll-paginate
+navbar:
+- slug: about
+  title: About
+- slug: blog
+  title: Blog
+exclude:
+- gulp
+- node_modules
+- bower
+- bower_components
+- config.rb
+- src
+- Gemfile
+- Gemfile.lock
+- ".rvmrc"
+- ".rbenv-version"
+- package.json
+- gulpfile.js
+- README.md
+- Rakefile
+- changelog.md
