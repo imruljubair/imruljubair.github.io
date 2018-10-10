@@ -1,7 +1,7 @@
 ---
 title: ''
-title2: M I Jubair
-description: home page
+title2: Mohammad Imrul Jubair
+description: Personal Webpage
 keywords: mohammad imrul jubair, visualization, graphics, computer vision
 url: http://imruljubair.github.io
 baseurl:
@@ -24,7 +24,7 @@ author:
   bio: "."
   thumb: "/images/author.jpg"
   email: mohammadimrul.jubair@ucalgary.ca
-  url: http://imruljubair.github.io
+  url: https://imruljubair.github.io
 og_locale: en_US
 gems:
 - bourbon
