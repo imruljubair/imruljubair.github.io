@@ -1,0 +1,56 @@
+#include <glut.h>
+
+void Draw_strip(float theN)
+{
+	float strLen = 1.0/theN;
+
+	for(int i=0; i <= theN; i++)
+	{
+		if(i%2==0)
+			glColor3f(202.0/255.00, 169.0/255.0, 106.0/255.0);
+		else 
+			glColor3f(146.0/255.0, 140.0/255.0, 168.0/255.0);
+		
+		
+		float strtX, strtY;
+
+		strtY = strLen*i;
+
+
+		glBegin(GL_QUADS);
+	
+		glVertex3f(0.0, strtY, 0.0);
+		glVertex3f(1.0, strtY, 0.0);
+		glVertex3f(1.0, strtY+strLen, 0.0);
+		glVertex3f(0.0, strtY+strLen, 0.0);
+
+		glEnd();
+	}
+
+}
+
+
+void Draw() {
+	glClear(GL_COLOR_BUFFER_BIT);
+	Draw_strip(6.0);
+	glFlush();
+}
+
+void Initialize() {
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
+}
+
+int main(int iArgc, char** cppArgv) {
+	glutInit(&iArgc, cppArgv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(500, 350);
+	glutInitWindowPosition(200, 200);
+	glutCreateWindow("CSE");
+	Initialize();
+	glutDisplayFunc(Draw);
+	glutMainLoop();
+	return 0;
+}
