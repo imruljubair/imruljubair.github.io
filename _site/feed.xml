@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
-    <description>Personal Webpage</description>
+    <description>Website</description>
     <link>http://imruljubair.github.io/</link>
     <atom:link href="http://imruljubair.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 16 Dec 2018 18:20:00 +0600</pubDate>
-    <lastBuildDate>Sun, 16 Dec 2018 18:20:00 +0600</lastBuildDate>
+    <pubDate>Sun, 16 Dec 2018 18:42:53 +0600</pubDate>
+    <lastBuildDate>Sun, 16 Dec 2018 18:42:53 +0600</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
   </channel>
