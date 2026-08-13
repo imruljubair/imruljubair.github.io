@@ -1,57 +1,100 @@
+// Every variable below has `!default`, meaning: use this value UNLESS
+// assets/css/main.scss already set it first. main.scss sets one from each
+// value in _data/design.yml before this file is even read — so editing that
+// YAML is really editing the values here, just without needing to open a
+// .scss file. Anything design.yml doesn't mention falls back to what's
+// written here.
+
 // Typography
-$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-$heading-font-family: $base-font-family;
+$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !default;
+$heading-font-family: $base-font-family !default;
 
 // Font Sizes
-$base-font-size: 1em;
+$base-font-size: 1em !default;
 
 // Line height
-$base-line-height: 1.6;
-$heading-line-height: 1.2;
+$base-line-height: 1.6 !default;
+$heading-line-height: 1.2 !default;
 
 // Other Sizes
-$base-border-radius: .5em;
-$base-spacing: $base-line-height * 1em;
-$small-spacing: $base-spacing / 2;
-$base-z-index: 0;
+$base-border-radius: .5em !default;
+$base-spacing: $base-line-height * 1em !default;
+$small-spacing: $base-spacing / 2 !default;
+$base-z-index: 0 !default;
 
 // Colors
-$ink-color: #16181d;
-$primary-color: $ink-color;
-$accent-color: #2f5fdd;
-$action-color: $accent-color;
-$white-color: #fff;
-$black-color: #000;
-$blue-color: $accent-color;
-$dark-gray-color: #3a3d45;
-$medium-gray-color: #767a85;
-$light-gray-color: #e4e5e9;
+$ink-color: #16181d !default;
+$primary-color: $ink-color !default;
+$accent-color: #2f5fdd !default;
+$action-color: $accent-color !default;
+$white-color: #fff !default;
+$black-color: #000 !default;
+$blue-color: $accent-color !default;
+$dark-gray-color: #3a3d45 !default;
+$medium-gray-color: #767a85 !default;
+$light-gray-color: #e4e5e9 !default;
 
 // Venn diagram — soft fill plus a darker ink for the outline and area label.
-$venn-ai: #86efac;
-$venn-ai-ink: #15803d;
-$venn-viz: #fcd34d;
-$venn-viz-ink: #b45309;
-$venn-hci: #bfdbfe;
-$venn-hci-ink: #1d4ed8;
+$venn-ai: #86efac !default;
+$venn-ai-ink: #15803d !default;
+$venn-viz: #fcd34d !default;
+$venn-viz-ink: #b45309 !default;
+$venn-hci: #bfdbfe !default;
+$venn-hci-ink: #1d4ed8 !default;
 // Where two areas overlap — reads as a blend of the green and the blue.
-$venn-overlap-ink: #0f766e;
+$venn-overlap-ink: #0f766e !default;
 
 // Font Colors
-$base-font-color: $ink-color;
+$base-font-color: $ink-color !default;
 
 // Border
-$base-border-color: $light-gray-color;
-$base-border: 1px solid $base-border-color;
+$base-border-color: $light-gray-color !default;
+$base-border: 1px solid $base-border-color !default;
 
 // Background Colors
-$base-background-color: $white-color;
-$secondary-background-color: #f6f7f9;
+$base-background-color: $white-color !default;
+$secondary-background-color: #f6f7f9 !default;
 
 // Forms
-$form-box-shadow: inset 0 1px 3px rgba($black-color, 0.06);
-$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+$form-box-shadow: inset 0 1px 3px rgba($black-color, 0.06) !default;
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3) !default;
 
 // Animations
-$base-duration: 150ms;
-$base-timing: ease;
+$base-duration: 150ms !default;
+$base-timing: ease !default;
+
+// ── Per-section fonts (_data/design.yml → fonts.*) ─────────────────────────
+// Each defaults to $base-font-family, so leaving a section blank in the YAML
+// just means "use the site's base font."
+$nav-font-family: $base-font-family !default;
+$hero-font-family: $base-font-family !default;
+$areas-font-family: $base-font-family !default;
+$journey-font-family: $base-font-family !default;
+$awards-font-family: $base-font-family !default;
+$cards-font-family: $base-font-family !default;
+
+// ── Section title / kicker (_data/design.yml → section_titles.*) ──────────
+// The small "ABOUT" / "AREAS" / "JOURNEY" / "AWARDS" heading above a section.
+$section-title-font-size: 13 !default;
+$section-title-color: $medium-gray-color !default;
+$section-title-letter-spacing: 0.08em !default;
+$section-title-line-color: $light-gray-color !default;
+
+// ── Layout (_data/design.yml → layout.*) ───────────────────────────────────
+$content-width: 880px !default;
+$section-gap: 3em !default;
+
+// ── Project cards (_data/design.yml → cards.*) ─────────────────────────────
+$card-image-ratio: "16 / 9" !default;
+$card-title-font-size: 14.5 !default;
+$card-description-font-size: 12.5 !default;
+
+// ── Per-section text sizes (_data/design.yml → sections.*) ─────────────────
+$hero-name-font-size: 17 !default;
+$hero-body-font-size: 16 !default;
+$hero-email-font-size: 13 !default;
+$nav-brand-font-size: 16 !default;
+$nav-link-font-size: 14 !default;
+$areas-font-size: 11 !default;
+$journey-font-size: 12 !default;
+$awards-font-size: 13 !default;

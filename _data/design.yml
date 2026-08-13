@@ -1,0 +1,89 @@
+# ============================================================================
+# VISUAL DESIGN SETTINGS
+# ============================================================================
+# Every value here feeds directly into the site's stylesheet at build time —
+# change a value, save, and (if `jekyll serve` is running) refresh the page.
+# Nothing else needs to be touched; you never need to open a .scss file for
+# things covered here.
+#
+# How to write values:
+#   Colors     any CSS color: "#2f5fdd", "rgb(47,95,221)", "royalblue"
+#   Fonts      comma-separated, most-preferred first, generic fallback last
+#              (e.g. "sans-serif" or "serif") in case earlier ones aren't
+#              installed on the visitor's device
+#   Sizes      a plain number, in pixels, with NO unit — 14, not "14px"
+#   Lengths    include the unit, in quotes — "3em", "880px", "0.08em"
+#
+# If you leave a value out entirely, the site falls back to its current
+# built-in default — you can't break the build by deleting a line.
+# ============================================================================
+
+fonts:
+  # Used almost everywhere unless a section below overrides it.
+  base: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+
+  # Per-section overrides — each defaults to `base` above if left blank.
+  # Give a section its own font by filling in the line under it, e.g.:
+  #   journey: "Georgia, serif"
+  nav: ""
+  about: ""
+  areas: ""     # the work lists next to the Venn diagram
+  journey: ""   # the BSc/MSc/Faculty/PhD timeline
+  awards: ""
+  cards: ""     # project card titles + descriptions
+
+colors:
+  ink: "#16181d"              # main heading/body text color, used site-wide
+  muted: "#767a85"            # secondary text — dates, captions, kicker labels
+  dark_gray: "#3a3d45"        # slightly darker than muted — card descriptions,
+                               # bio paragraphs, awards list text
+  border: "#e4e5e9"           # thin lines — card outlines, kicker rule,
+                               # award-row dividers, timeline dashed line
+  accent: "#2f5fdd"           # links and hover color, site-wide
+  background: "#ffffff"       # page background
+  background_alt: "#f6f7f9"   # subtle tint (project image placeholder area)
+
+  # --- Areas / Venn diagram -------------------------------------------------
+  venn:
+    ai_fill: "#86efac"        # AI circle fill
+    ai_ink: "#15803d"         # AI circle outline, area label, dot, list heading
+    viz_fill: "#fcd34d"       # Visualization circle fill
+    viz_ink: "#b45309"        # Visualization outline, label, dot, heading
+    hci_fill: "#bfdbfe"       # HCI circle fill
+    hci_ink: "#1d4ed8"        # HCI outline + area label (HCI has no list of
+                               # its own — every HCI work overlaps AI or Viz)
+    overlap_ink: "#0f766e"    # AI + HCI dot and list heading
+
+section_titles:
+  # The small "ABOUT" / "AREAS" / "JOURNEY" / "AWARDS" label above each
+  # section, with a horizontal line on either side of it.
+  font_size: 14
+  color: "#767a85"
+  letter_spacing: "0.08em"
+  line_color: "#e4e5e9"       # color of the two flanking lines
+
+layout:
+  content_width: "880px"      # max width of the centered page content
+  # Vertical breathing room between sections (Areas, Journey, Awards). The
+  # About section keeps some extra space above it for the sticky nav bar,
+  # which scales automatically with this value — you don't need to touch
+  # that separately.
+  section_gap: "1em"
+
+cards:
+  # Project cards under the Venn diagram.
+  image_ratio: "3 / 1"       # width / height — try "1 / 1" for square,
+                               # "4 / 3" for a shorter, wider crop
+  title_size: 14
+  description_size: 11.5
+
+sections:
+  # Base text size for each section's main content.
+  hero_name_size: 17           # "My name is ..." line
+  hero_body_size: 16           # bio paragraphs
+  hero_email_size: 13
+  nav_brand_size: 16           # your name in the top-left of the nav bar
+  nav_link_size: 14            # About / Areas / Journey / Awards links
+  areas_size: 11                # work lists beside the Venn diagram
+  journey_size: 12.5              # timeline role / institution / year text
+  awards_size: 13               # awards list rows

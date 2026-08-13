@@ -1,4 +1,176 @@
 ---
-# Only the main Sass file needs front matter (the dashes are enough)
+# Only the main Sass file needs front matter (the dashes are enough).
+#
+# This is the one .scss file Jekyll runs through Liquid before handing it to
+# the Sass compiler — every other .scss file is a plain partial the compiler
+# reads directly, with no templating. That's why the _data/design.yml →
+# variable bridge lives here: each line below reads one YAML value and, if
+# it's actually set, defines the matching $variable before @import "app"
+# pulls in the rest of the stylesheet. _variables.scss declares every one of
+# these with `!default`, which only assigns if a variable isn't already
+# set — so a value defined here wins, and anything left out (or deleted from
+# the YAML) silently falls back to _variables.scss's built-in default instead
+# of breaking the build.
 ---
+{%- assign d = site.data.design -%}
+
+{%- assign v = d.fonts.base -%}
+{%- if v and v != "" %}
+$base-font-family: {{ v }};
+{%- endif %}
+{%- assign v = d.fonts.nav -%}
+{%- if v and v != "" %}
+$nav-font-family: {{ v }};
+{%- endif %}
+{%- assign v = d.fonts.about -%}
+{%- if v and v != "" %}
+$hero-font-family: {{ v }};
+{%- endif %}
+{%- assign v = d.fonts.areas -%}
+{%- if v and v != "" %}
+$areas-font-family: {{ v }};
+{%- endif %}
+{%- assign v = d.fonts.journey -%}
+{%- if v and v != "" %}
+$journey-font-family: {{ v }};
+{%- endif %}
+{%- assign v = d.fonts.awards -%}
+{%- if v and v != "" %}
+$awards-font-family: {{ v }};
+{%- endif %}
+{%- assign v = d.fonts.cards -%}
+{%- if v and v != "" %}
+$cards-font-family: {{ v }};
+{%- endif %}
+
+{%- assign v = d.colors.ink -%}
+{%- if v and v != "" %}
+$ink-color: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.muted -%}
+{%- if v and v != "" %}
+$medium-gray-color: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.dark_gray -%}
+{%- if v and v != "" %}
+$dark-gray-color: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.border -%}
+{%- if v and v != "" %}
+$light-gray-color: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.accent -%}
+{%- if v and v != "" %}
+$accent-color: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.background -%}
+{%- if v and v != "" %}
+$white-color: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.background_alt -%}
+{%- if v and v != "" %}
+$secondary-background-color: {{ v }};
+{%- endif %}
+
+{%- assign v = d.colors.venn.ai_fill -%}
+{%- if v and v != "" %}
+$venn-ai: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.venn.ai_ink -%}
+{%- if v and v != "" %}
+$venn-ai-ink: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.venn.viz_fill -%}
+{%- if v and v != "" %}
+$venn-viz: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.venn.viz_ink -%}
+{%- if v and v != "" %}
+$venn-viz-ink: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.venn.hci_fill -%}
+{%- if v and v != "" %}
+$venn-hci: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.venn.hci_ink -%}
+{%- if v and v != "" %}
+$venn-hci-ink: {{ v }};
+{%- endif %}
+{%- assign v = d.colors.venn.overlap_ink -%}
+{%- if v and v != "" %}
+$venn-overlap-ink: {{ v }};
+{%- endif %}
+
+{%- assign v = d.section_titles.font_size -%}
+{%- if v and v != "" %}
+$section-title-font-size: {{ v }};
+{%- endif %}
+{%- assign v = d.section_titles.color -%}
+{%- if v and v != "" %}
+$section-title-color: {{ v }};
+{%- endif %}
+{%- assign v = d.section_titles.letter_spacing -%}
+{%- if v and v != "" %}
+$section-title-letter-spacing: {{ v }};
+{%- endif %}
+{%- assign v = d.section_titles.line_color -%}
+{%- if v and v != "" %}
+$section-title-line-color: {{ v }};
+{%- endif %}
+
+{%- assign v = d.layout.content_width -%}
+{%- if v and v != "" %}
+$content-width: {{ v }};
+{%- endif %}
+{%- assign v = d.layout.section_gap -%}
+{%- if v and v != "" %}
+$section-gap: {{ v }};
+{%- endif %}
+
+{%- assign v = d.cards.image_ratio -%}
+{%- if v and v != "" %}
+$card-image-ratio: "{{ v }}";
+{%- endif %}
+{%- assign v = d.cards.title_size -%}
+{%- if v and v != "" %}
+$card-title-font-size: {{ v }};
+{%- endif %}
+{%- assign v = d.cards.description_size -%}
+{%- if v and v != "" %}
+$card-description-font-size: {{ v }};
+{%- endif %}
+
+{%- assign v = d.sections.hero_name_size -%}
+{%- if v and v != "" %}
+$hero-name-font-size: {{ v }};
+{%- endif %}
+{%- assign v = d.sections.hero_body_size -%}
+{%- if v and v != "" %}
+$hero-body-font-size: {{ v }};
+{%- endif %}
+{%- assign v = d.sections.hero_email_size -%}
+{%- if v and v != "" %}
+$hero-email-font-size: {{ v }};
+{%- endif %}
+{%- assign v = d.sections.nav_brand_size -%}
+{%- if v and v != "" %}
+$nav-brand-font-size: {{ v }};
+{%- endif %}
+{%- assign v = d.sections.nav_link_size -%}
+{%- if v and v != "" %}
+$nav-link-font-size: {{ v }};
+{%- endif %}
+{%- assign v = d.sections.areas_size -%}
+{%- if v and v != "" %}
+$areas-font-size: {{ v }};
+{%- endif %}
+{%- assign v = d.sections.journey_size -%}
+{%- if v and v != "" %}
+$journey-font-size: {{ v }};
+{%- endif %}
+{%- assign v = d.sections.awards_size -%}
+{%- if v and v != "" %}
+$awards-font-size: {{ v }};
+{%- endif %}
+
 @import "app";
