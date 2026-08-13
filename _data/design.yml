@@ -60,7 +60,7 @@ section_titles:
   font_size: 14
   color: "#767a85"
   letter_spacing: "0.08em"
-  line_color: "#e4e5e9"       # color of the two flanking lines
+  line_color: "#e4e5e9"       # color of the two flanking lines (init: #e4e5e9)
 
 layout:
   content_width: "880px"      # max width of the centered page content
