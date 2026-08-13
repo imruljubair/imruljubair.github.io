@@ -27,6 +27,16 @@ $dark-gray-color: #3a3d45;
 $medium-gray-color: #767a85;
 $light-gray-color: #e4e5e9;
 
+// Venn diagram — soft fill plus a darker ink for the outline and area label.
+$venn-ai: #86efac;
+$venn-ai-ink: #15803d;
+$venn-viz: #fcd34d;
+$venn-viz-ink: #b45309;
+$venn-hci: #bfdbfe;
+$venn-hci-ink: #1d4ed8;
+// Where two areas overlap — reads as a blend of the green and the blue.
+$venn-overlap-ink: #0f766e;
+
 // Font Colors
 $base-font-color: $ink-color;
 

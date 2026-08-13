@@ -11,47 +11,163 @@
 {%- assign ai_hci = works | where: "type", "ai+hci" | group_by: "year" | sort: "name" | reverse -%}
 {%- assign triple = works | where: "type", "ai+viz+hci" | group_by: "year" | sort: "name" | reverse -%}
 
-<div class="venn-wrap">
-  {%- comment -%}
-    .venn-canvas is the positioning context for the labels and wraps the image
-    exactly, so each label's left/top percentages are the leader-line endpoint's
-    position within venn.png itself. If the image is replaced, re-read the dot
-    coordinates and paste them straight into _home.scss — no padding maths.
-  {%- endcomment -%}
-  <div class="venn-canvas">
-  <img class="venn-img" src="{{ '/assets/images/venn.png' | prepend: site.baseurl }}" alt="Venn diagram of research areas: AI, Visualization, and HCI">
+{%- comment -%}
+  Diagram on one side, every list stacked on the other, joined by leader lines.
 
-  {%- if ai_only.size > 0 -%}
-  <div class="venn-node venn-node--ai">
-    {%- for yg in ai_only -%}{%- for item in yg.items -%}
-      {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
-    {%- endfor -%}{%- endfor -%}
-  </div>
-  {%- endif -%}
+  The lines are drawn into .venn-links by the script at the end of this file,
+  from the measured positions of the dots and the list headings. Nothing about
+  them is hard-coded, so they stay attached however long the lists grow or
+  however the text reflows — earlier versions used fixed endpoints and drifted
+  out of alignment every time the data changed.
 
-  {%- if viz_only.size > 0 -%}
-  <div class="venn-node venn-node--viz">
-    {%- for yg in viz_only -%}{%- for item in yg.items -%}
-      {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
-    {%- endfor -%}{%- endfor -%}
-  </div>
-  {%- endif -%}
+  Dot positions are in the SVG's 320x200 viewBox, each inside its own region
+  only, and ordered top-to-bottom to match the list order so no lines cross:
+    AI        (196, 52)
+    Viz       ( 95, 88)
+    AI + HCI  (198, 95)
+    all three (158,115)
+{%- endcomment -%}
+<div class="venn-layout">
+  <svg class="venn-links" aria-hidden="true"></svg>
 
-  {%- if ai_hci.size > 0 -%}
-  <div class="venn-node venn-node--ai-hci">
-    {%- for yg in ai_hci -%}{%- for item in yg.items -%}
-      {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
-    {%- endfor -%}{%- endfor -%}
+  <div class="venn-diagram">
+    <svg class="venn-svg" viewBox="0 0 320 200" role="img" aria-labelledby="venn-t venn-d">
+      <title id="venn-t">Research areas</title>
+      <desc id="venn-d">Three overlapping circles labelled AI, Visualization and HCI. Each region has a marker joined by a line to the list of work done in it.</desc>
+
+      <g class="venn-circles">
+        <path class="venn-circle venn-circle--viz" d="M168.5,120.0 C168.5,133.3 161.7,151.5 151.7,159.7 C141.7,168.0 121.5,172.3 108.7,169.3 C96.0,166.3 80.5,153.4 75.0,141.7 C69.6,129.9 70.5,110.8 76.1,98.8 C81.7,86.9 95.9,73.2 108.6,70.0 C121.2,66.8 142.0,71.5 152.0,79.8 C162.0,88.2 168.6,106.7 168.5,120.0 Z"/>
+        <path class="venn-circle venn-circle--hci" d="M245.3,125.0 C245.2,138.3 236.8,156.2 226.5,164.5 C216.2,172.9 196.2,178.2 183.6,175.1 C170.9,172.1 156.5,158.3 150.8,146.3 C145.1,134.3 143.9,115.0 149.3,103.0 C154.8,91.1 170.5,77.7 183.5,74.6 C196.5,71.5 217.0,76.1 227.3,84.5 C237.6,92.9 245.4,111.7 245.3,125.0 Z"/>
+        <path class="venn-circle venn-circle--ai" d="M214.2,72.0 C214.3,84.6 205.3,101.7 195.2,109.9 C185.1,118.1 166.0,124.2 153.7,121.4 C141.5,118.6 127.3,104.7 121.6,92.9 C116.0,81.0 114.4,61.7 119.8,50.2 C125.2,38.7 141.5,26.5 154.0,23.8 C166.5,21.2 184.9,26.4 195.0,34.4 C205.0,42.5 214.2,59.4 214.2,72.0 Z"/>
+      </g>
+
+      <text class="venn-area venn-area--ai" x="165" y="50" text-anchor="middle">AI</text>
+      <text class="venn-area venn-area--viz" x="95" y="145" text-anchor="middle">Viz</text>
+      <text class="venn-area venn-area--hci" x="218" y="157" text-anchor="middle">HCI</text>
+
+      <g class="venn-dots">
+        <circle class="venn-dot venn-dot--ai" cx="196" cy="52" r="3.6"/>
+        <circle class="venn-dot venn-dot--viz" cx="95" cy="88" r="3.6"/>
+        <circle class="venn-dot venn-dot--ai-hci" cx="198" cy="95" r="3.6"/>
+        <circle class="venn-dot venn-dot--triple" cx="158" cy="115" r="3.6"/>
+      </g>
+    </svg>
   </div>
-  {%- endif -%}
+
+  <div class="venn-lists">
+    {%- if ai_only.size > 0 -%}
+    <div class="venn-node venn-node--ai">
+      <span class="venn-node-title">AI</span>
+      {%- for yg in ai_only -%}{%- for item in yg.items -%}
+        {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
+      {%- endfor -%}{%- endfor -%}
+    </div>
+    {%- endif -%}
+
+    {%- if viz_only.size > 0 -%}
+    <div class="venn-node venn-node--viz">
+      <span class="venn-node-title">Visualization</span>
+      {%- for yg in viz_only -%}{%- for item in yg.items -%}
+        {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
+      {%- endfor -%}{%- endfor -%}
+    </div>
+    {%- endif -%}
+
+    {%- if ai_hci.size > 0 -%}
+    <div class="venn-node venn-node--ai-hci">
+      <span class="venn-node-title">AI + HCI</span>
+      {%- for yg in ai_hci -%}{%- for item in yg.items -%}
+        {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
+      {%- endfor -%}{%- endfor -%}
+    </div>
+    {%- endif -%}
+
+    {%- if triple.size > 0 -%}
+    <div class="venn-node venn-node--triple">
+      <span class="venn-node-title">Current focus</span>
+      {%- for yg in triple -%}{%- for item in yg.items -%}
+        {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
+      {%- endfor -%}{%- endfor -%}
+    </div>
+    {%- endif -%}
   </div>
 </div>
 
-{%- if triple.size > 0 -%}
-<div class="venn-below">
-  <span class="venn-below-title">Current focus</span>
-  {%- for yg in triple -%}{%- for item in yg.items -%}
-    {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
-  {%- endfor -%}{%- endfor -%}
-</div>
-{%- endif -%}
+<script>
+(function () {
+  var layout = document.querySelector('.venn-layout');
+  if (!layout) return;
+  var overlay = layout.querySelector('.venn-links');
+  if (!overlay) return;
+
+  /* [slug, dot, list block] */
+  var pairs = [
+    ['ai', '.venn-dot--ai', '.venn-node--ai'],
+    ['viz', '.venn-dot--viz', '.venn-node--viz'],
+    ['ai-hci', '.venn-dot--ai-hci', '.venn-node--ai-hci'],
+    ['triple', '.venn-dot--triple', '.venn-node--triple']
+  ];
+
+  var NS = 'http://www.w3.org/2000/svg';
+
+  /* Aim at the first line the reader can actually see, so the line lands on the
+     middle of a line of text. Most headings are hidden from sight on wide
+     screens but kept in the DOM for screen readers, clipped to 1px — hence the
+     height test rather than simply taking the first child. */
+  function firstVisibleLine(node) {
+    var kids = node.children;
+    for (var i = 0; i < kids.length; i++) {
+      if (kids[i].getBoundingClientRect().height >= 8) return kids[i];
+    }
+    return node;
+  }
+
+  function draw() {
+    /* The stacked layout hides the overlay; drawing into it would be wasted
+       work and the measurements would be meaningless. */
+    if (getComputedStyle(overlay).display === 'none') return;
+
+    var box = overlay.getBoundingClientRect();
+    if (!box.width) return;
+
+    while (overlay.firstChild) overlay.removeChild(overlay.firstChild);
+
+    pairs.forEach(function (p) {
+      var dot = layout.querySelector(p[1]);
+      var node = layout.querySelector(p[2]);
+      if (!dot || !node) return;
+
+      var d = dot.getBoundingClientRect();
+      var h = firstVisibleLine(node).getBoundingClientRect();
+
+      var sx = d.left + d.width / 2 - box.left;
+      var sy = d.top + d.height / 2 - box.top;
+      var tx = h.left - box.left - 9;
+      var ty = h.top + h.height / 2 - box.top;
+
+      var path = document.createElementNS(NS, 'path');
+      path.setAttribute('class', 'venn-link');
+      path.setAttribute('d', 'M' + sx.toFixed(1) + ',' + sy.toFixed(1) +
+                             ' L' + tx.toFixed(1) + ',' + ty.toFixed(1));
+      overlay.appendChild(path);
+
+      var end = document.createElementNS(NS, 'circle');
+      end.setAttribute('class', 'venn-link-end');
+      end.setAttribute('cx', tx.toFixed(1));
+      end.setAttribute('cy', ty.toFixed(1));
+      end.setAttribute('r', '2.6');
+      overlay.appendChild(end);
+    });
+  }
+
+  draw();
+  window.addEventListener('load', draw);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+
+  var t;
+  window.addEventListener('resize', function () {
+    clearTimeout(t);
+    t = setTimeout(draw, 120);
+  });
+})();
+</script>

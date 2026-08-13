@@ -164,152 +164,179 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 0 20px; // room for nodes that hug the left/right image edge
 }
 
-.venn-scroll-hint {
-  display: none;
-  margin: 0.6em 0 0;
-  text-align: center;
-  font-size: rem(12);
-  color: $medium-gray-color;
-}
-
-// ── Diagram calibration ────────────────────────────────────────────────────
-// If assets/images/venn.png is redrawn, update only this block: the image's
-// intrinsic pixel size, and each leader-line endpoint as a percentage of it.
-// Everything else is derived.
-$venn-img-w: 1695;
-$venn-img-h: 994;
+// ── Diagram layout ─────────────────────────────────────────────────────────
+// Diagram in one column, every list stacked in the other. The leader lines
+// between them are drawn into .venn-links by the script in
+// _includes/venn-diagram.html from measured positions — nothing here fixes
+// where a line starts or ends, which is what kept them drifting before.
 $venn-width: 320px;
-$venn-rendered-h: $venn-width * $venn-img-h / $venn-img-w;
 
-$venn-dot-ai-x: 96.27%;
-$venn-dot-ai-y: 12.52%;
-$venn-dot-viz-x: 0.96%;
-$venn-dot-viz-y: 24.99%;
-$venn-dot-ai-hci-x: 98.95%;
-$venn-dot-ai-hci-y: 70.21%;
-$venn-dot-triple-x: 5.09%;
-$venn-dot-triple-y: 84.30%;
-
-// Extra leftward nudge for the Current-focus block. Sitting exactly on its
-// endpoint runs the block's first line under the Viz circle, which reaches in
-// to ~25% of the image width at that height. Increase the magnitude to move
-// the block further left, decrease it to bring it back toward the endpoint.
-$venn-triple-nudge-x: -72px;
-
-.venn-wrap {
-  width: $venn-width;
-  // Top padding gives the AI list room to sit above its dot without being
-  // clipped by .venn-scroll's (forced-by-overflow-x:auto) overflow-y: auto.
-  padding-top: 30px;
-  flex: 0 0 auto;
-}
-
-// Wraps the image exactly, so label percentages are image percentages.
-.venn-canvas {
+.venn-layout {
   position: relative;
+  display: grid;
+  grid-template-columns: $venn-width 1fr;
+  gap: 4.5em;
+  align-items: center;
+  width: 100%;
+  max-width: 720px;
 }
 
-.venn-img {
+// Full-bleed overlay the lines are drawn into. It deliberately has no viewBox,
+// so one SVG user unit equals one CSS pixel and the script can draw straight
+// from measured coordinates.
+.venn-links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.venn-link {
+  fill: none;
+  stroke: $medium-gray-color;
+  stroke-width: 1;
+}
+
+.venn-link-end {
+  fill: $medium-gray-color;
+}
+
+// Lifted above the line overlay so lines from the inner regions pass behind the
+// circles rather than across them. The fills are translucent, so a line still
+// reads faintly underneath instead of vanishing.
+.venn-diagram {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.venn-svg {
   display: block;
   width: 100%;
   height: auto;
 }
 
+.venn-circle {
+  mix-blend-mode: multiply;
+  fill-opacity: 0.55;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.venn-circle--ai   { fill: $venn-ai;  stroke: $venn-ai-ink; }
+.venn-circle--viz  { fill: $venn-viz; stroke: $venn-viz-ink; }
+.venn-circle--hci  { fill: $venn-hci; stroke: $venn-hci-ink; }
+
+.venn-area {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.venn-area--ai  { fill: $venn-ai-ink; }
+.venn-area--viz { fill: $venn-viz-ink; }
+.venn-area--hci { fill: $venn-hci-ink; }
+
+// A background-coloured rim keeps each dot legible wherever it falls on the
+// tinted fills, including the darker patches where circles overlap.
+.venn-dot {
+  stroke: $base-background-color;
+  stroke-width: 1.4;
+}
+
+.venn-dot--ai     { fill: $venn-ai-ink; }
+.venn-dot--viz    { fill: $venn-viz-ink; }
+.venn-dot--ai-hci { fill: $venn-overlap-ink; }
+.venn-dot--triple { fill: $ink-color; }
+
+.venn-lists {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15em;
+}
+
 .venn-node {
-  position: absolute;
-  white-space: nowrap;
+  font-size: 11px;
   line-height: 1.5;
-  font-size: 13px;
   color: $ink-color;
 }
 
-// Each block's FIRST line sits level with its leader-line endpoint (-0.75em is
-// half of the 1.5 line-height), so lists always grow downwards, away from the
-// diagram — adding works can never push a label up out of the visible area.
-.venn-node--ai {
-  left: $venn-dot-ai-x;
-  top: $venn-dot-ai-y;
-  transform: translate(10px, -0.75em);
-  text-align: left;
-}
-
-.venn-node--ai-hci {
-  left: $venn-dot-ai-hci-x;
-  top: $venn-dot-ai-hci-y;
-  transform: translate(10px, -0.75em);
-  text-align: left;
-}
-
-.venn-node--viz {
-  left: $venn-dot-viz-x;
-  top: $venn-dot-viz-y;
-  transform: translate(calc(-100% - 10px), -0.75em);
-  text-align: right;
-}
-
-// Stays in normal flow (unlike the other three) so .venn-scroll grows to fit
-// it however many works are listed. Its endpoint sits near the image's left
-// edge, so the block is left-aligned and its LEFT edge — not its centre — is
-// placed on the endpoint; centring would hang it off the side of the diagram.
-// translateX's 50% is half the block's own width, which cancels the flex
-// centring and makes the result independent of how wide the text runs.
-.venn-below {
-  margin-top: ($venn-dot-triple-y - 100%) / 100% * $venn-rendered-h + 10px;
-  transform: translateX(calc(50% - #{(50% - $venn-dot-triple-x) / 100% * $venn-width - $venn-triple-nudge-x}));
-  text-align: left;
-  font-size: 13px;
-  color: $ink-color;
-}
-
-.venn-below-title {
+// Names the region and carries its colour. Colour alone cannot distinguish an
+// overlap ("AI + HCI") from a plain region and would be lost on colourblind
+// readers, so the wording does the work and the colour reinforces it.
+.venn-node-title {
   display: block;
-  margin-bottom: 0.2em;
+  margin-bottom: 0.15em;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: $medium-gray-color;
+}
+
+.venn-node--ai .venn-node-title     { color: $venn-ai-ink; }
+.venn-node--viz .venn-node-title    { color: $venn-viz-ink; }
+.venn-node--ai-hci .venn-node-title { color: $venn-overlap-ink; }
+.venn-node--triple .venn-node-title { color: $ink-color; }
+
+// Where a leader line already identifies the region, its heading is redundant
+// on screen — but it is clipped rather than removed so screen readers, which
+// get no benefit from the lines, still hear which group they are in.
+// "Current focus" stays visible: it names the group rather than restating a
+// region, so no line conveys it.
+.venn-node--ai .venn-node-title,
+.venn-node--viz .venn-node-title,
+.venn-node--ai-hci .venn-node-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 .venn-item {
   display: block;
   cursor: default;
-  transition: color $base-duration $base-timing,
-              opacity $base-duration $base-timing;
 }
 
-// Set while a project card is hovered, so the work it points at stands out.
-.venn-scroll.is-dimming .venn-item:not(.is-highlighted) {
-  opacity: 0.3;
-}
-
-// Added by JS to works that have a matching project card — clicking one
-// scrolls to that card rather than following its external link.
-.venn-item.has-card {
-  cursor: pointer;
-}
-
-.venn-item.is-highlighted {
-  color: $accent-color;
-  // A box-shadow halo rather than padding/font-weight: those would change the
-  // element's size and nudge the carefully positioned labels on hover.
-  background: rgba($accent-color, 0.12);
-  border-radius: 2px;
-  box-shadow: 0 0 0 3px rgba($accent-color, 0.12);
-}
-
-.venn-node a,
-.venn-below a {
+.venn-node a {
   color: inherit;
   cursor: pointer;
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+// Narrow screens: side-by-side needs roughly 700px, so the two columns collapse
+// to one and the diagram sits above its lists. The lines are hidden rather than
+// redrawn — near-vertical lines through stacked text would add nothing.
+@media (max-width: 700px) {
+  .venn-layout {
+    grid-template-columns: 1fr;
+    gap: 1.6em;
+    max-width: $venn-width;
+  }
+
+  .venn-links {
+    display: none;
+  }
+
+  // With no lines here, the headings are the only thing naming each group, so
+  // they all come back into view.
+  .venn-node .venn-node-title {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0 0 0.15em;
+    overflow: visible;
+    clip: auto;
   }
 }
 
@@ -682,16 +709,6 @@ $venn-triple-nudge-x: -72px;
 @media (max-width: 480px) {
   .project-grid {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 840px) {
-  .venn-scroll {
-    justify-content: flex-start;
-  }
-
-  .venn-scroll-hint {
-    display: block;
   }
 }
 
