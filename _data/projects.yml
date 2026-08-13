@@ -1,0 +1,110 @@
+# Project cards shown under the Venn diagram in the Areas section.
+# ---------------------------------------------------------------------------
+# Add, remove, or reorder entries — they render in this order, 3 per row.
+#
+# Fields:
+#   name         Card title. Required.
+#   work         Links the card to entries in _data/works.csv — hovering the
+#                card highlights those names in the Venn diagram above.
+#                Use the work's `name` exactly as spelled in works.csv.
+#                Separate several with commas: "PerSign, DIY Graphics Tab".
+#                A name with no match in works.csv simply won't highlight.
+#   image        Path to a still or animated GIF, relative to the site root.
+#                Omit it and the card falls back to a neutral placeholder.
+#   description  One or two sentences. ">-" folds the indented lines below it
+#                into a single paragraph. Accepts **bold** / [links](url).
+#                Keep under ~93 characters so it fits three lines on a card
+#                and every card in a row stays the same height.
+#   links        All four are optional — omit or leave blank to hide the icon.
+#                  code    → GitHub / repository
+#                  paper   → paper, PDF, or publication page
+#                  video   → YouTube or any video demo
+#                  site    → project website or live demo
+# ---------------------------------------------------------------------------
+
+- name: ggufvis2
+  work: ggufvis2
+  image: /assets/images/projects/tinyllama-attention.png
+  description: >-
+    Visualizes what's inside a GGUF file, making a local LLM's structure
+    readable at a glance within the terminal.
+  links:
+    code: https://github.com/imruljubair/ggufvis2
+    video: https://youtu.be/6VitPJzfYKs?si=WzMj6fYr1jXrl7ov
+
+- name: The Architect
+  work: The Architect
+  image: /assets/images/projects/architect.png
+  description: >-
+    Rebuilds deep learning math for forward pass and backprop inside Microsoft Excel, so every step is
+    visible in plain cells.
+  links:
+    code: https://github.com/imruljubair/The-Architect
+    video: https://youtu.be/HzAudh_PK8I?si=bdTV719cfS_8XoYx
+    paper: https://o365coloradoedu-my.sharepoint.com/:b:/g/personal/moju3572_colorado_edu/IQA9vtEv8orcTYOUjf3UaYi9AXCHAfk7jnziPFxkMVhDkvg?e=jabPkg
+
+- name: MLP Math Viz
+  work: MLP Math Viz
+  image: /assets/images/projects/mlpmath.png
+  description: >-
+    A small language for exploring the math, graph and code for a multilayer perceptron, inside the Jupyter notebook.
+  links:
+    code: https://github.com/imruljubair/A-DSL-for-Mathematical-Exploration
+    video: https://youtu.be/6rdvZq62gmY
+
+- name: HVSMR-2.0
+  work: HVSMR-2.0
+  image: /assets/images/projects/hvsmr2.png
+  description: >-
+    A 3D cardiac MRI dataset for whole-heart segmentation in congenital heart
+    disease.
+  links:
+    paper: https://www.nature.com/articles/s41597-024-03469-9
+
+- name: BdSL36
+  work: BdSL36
+  image: /assets/images/projects/bdsl.png
+  description: >-
+    A dataset of 36 Bangladeshi sign letters for training and benchmarking
+    recognition models.
+  links:
+    code: https://rb.gy/mm3yjg
+    paper: https://openaccess.thecvf.com/content/ACCV2020W/MLCSA/html/Hoque_BdSL36_A_Dataset_for_Bangladeshi_Sign_Letters_Recognition_ACCVW_2020_paper.html
+    video: https://youtu.be/J2BPew-ASpw?si=e5RCXvIcpCSiwFCt
+
+- name: PerSign
+  work: PerSign
+  image: /assets/images/projects/persign.jpg
+  description: >-
+    Turns a photo of a person into that person signing, with face, skin and
+    clothing intact.
+  links:
+    paper: https://dl.acm.org/doi/fullHtml/10.1145/3526114.3558712
+
+- name: DIY Graphics Tab
+  work: DIY Graphics Tab
+  image: /assets/images/projects/diy.jpg
+  description: >-
+    A low-cost stand-in for a graphics tablet: a webcam tracks a pen moving on
+    ordinary paper.
+  links:
+    paper: https://dl.acm.org/doi/10.1145/3526114.3558718
+    video: https://youtu.be/rkcHIDOOoKQ?si=VZR7FmBb3GDwbelE
+
+- name: Icosahedral Maps
+  work: Icosahedral Maps
+  image: /assets/images/projects/icosa.png
+  description: >-
+    A method for converting complex climate model data into 2D structure to
+    visualize at multiple levels of detail.
+  links:
+    paper: https://dl.acm.org/doi/10.5555/3056901.3056928
+
+- name: Digital Earth
+  work: Digital Earth
+  image: /assets/images/projects/earth.png
+  description: >-
+    Hexagonal box-spline wavelets for rendering Earth data smoothly across
+    zoom levels.
+  links:
+    paper: https://ieeexplore.ieee.org/document/7429508/

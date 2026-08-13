@@ -1,52 +1,25 @@
----
 title: ''
 title2: Mohammad Imrul Jubair
-description: Website
-keywords: mohammad imrul jubair, visualization, graphics, computer vision
-url: http://imruljubair.github.io
+description: PhD student in Computer Science at the University of Colorado Boulder, working across AI, Visualization and HCI.
+keywords: mohammad imrul jubair, AI, visualization, HCI, computer graphics, computer vision
+url: https://imruljubair.github.io
 baseurl:
-google_analytics: UA-127224974-1
-repo: http://imruljubair.github.io
-disqus_shortname:
-twitter_username:
-comments: false
-permalink: "/:year/:title/"
+repo: https://github.com/imruljubair/imruljubair.github.io
+og_locale: en_US
+
+author:
+  name: Mohammad Imrul Jubair
+  email: mohammad.jubair@colorado.edu
+  url: https://imruljubair.github.io
+
 markdown: kramdown
 highlighter: rouge
-source: "./"
-destination: "./_site"
+
 sass:
   sass_dir: assets/scss
   style: compressed
-author:
-  name: Mohammad Imrul Jubair
-  job: Faculty
-  bio: "."
-  thumb: "/images/author.jpg"
-  email: mohammadimrul.jubair@ucalgary.ca
-  url: https://imruljubair.github.io
-og_locale: en_US
-gems:
-- bourbon
-- jekyll-paginate
-navbar:
-- slug: about
-  title: About
-- slug: blog
-  title: Blog
+
 exclude:
-- gulp
-- node_modules
-- bower
-- bower_components
-- config.rb
-- src
-- Gemfile
-- Gemfile.lock
-- ".rvmrc"
-- ".rbenv-version"
-- package.json
-- gulpfile.js
-- README.md
-- Rakefile
-- changelog.md
+  - Gemfile
+  - Gemfile.lock
+  - README.md

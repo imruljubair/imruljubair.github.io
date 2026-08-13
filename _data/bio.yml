@@ -1,0 +1,24 @@
+# The whole About section lives here — edit any of it freely.
+#
+# Every text field accepts Markdown:
+#   **bold**   *italic*   [link text](https://example.com)
+#
+# For long text, ">-" folds the indented lines below it into one paragraph,
+# so you can wrap lines however you like without it showing up on the page.
+
+# The opening line, shown larger than the rest.
+heading: My name is Jubair.
+
+# Body paragraphs. Add, remove, or reorder — they render in this order.
+paragraphs:
+  - >-
+    I am a PhD Student in Computer Science at the
+    [University of Colorado Boulder](https://www.colorado.edu/cs/).
+    I work with [Prof. Tom Yeh](https://www.colorado.edu/cs/tom-yeh).
+  - >-
+    I work at the intersection of **AI**, **Visualization**, and **HCI** —
+    building tools that make AI easier for people to see,
+    understand, and use.
+
+# Shown as plain text at the start of the links row. Leave blank to hide it.
+email: mohammad.jubair@colorado.edu

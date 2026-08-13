@@ -1,0 +1,57 @@
+{%- comment -%}
+  Liquid's `sort` filter isn't guaranteed stable, so `sort: "year" | reverse`
+  can silently reorder same-year items instead of keeping their CSV order.
+  Grouping by year first sidesteps that: group_by preserves each item's
+  original relative order within its group, and the groups themselves (one
+  per distinct year) have no ties to worry about when sorted.
+{%- endcomment -%}
+{%- assign works = site.data.works -%}
+{%- assign ai_only = works | where: "type", "ai" | group_by: "year" | sort: "name" | reverse -%}
+{%- assign viz_only = works | where: "type", "viz" | group_by: "year" | sort: "name" | reverse -%}
+{%- assign ai_hci = works | where: "type", "ai+hci" | group_by: "year" | sort: "name" | reverse -%}
+{%- assign triple = works | where: "type", "ai+viz+hci" | group_by: "year" | sort: "name" | reverse -%}
+
+<div class="venn-wrap">
+  {%- comment -%}
+    .venn-canvas is the positioning context for the labels and wraps the image
+    exactly, so each label's left/top percentages are the leader-line endpoint's
+    position within venn.png itself. If the image is replaced, re-read the dot
+    coordinates and paste them straight into _home.scss — no padding maths.
+  {%- endcomment -%}
+  <div class="venn-canvas">
+  <img class="venn-img" src="{{ '/assets/images/venn.png' | prepend: site.baseurl }}" alt="Venn diagram of research areas: AI, Visualization, and HCI">
+
+  {%- if ai_only.size > 0 -%}
+  <div class="venn-node venn-node--ai">
+    {%- for yg in ai_only -%}{%- for item in yg.items -%}
+      {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
+    {%- endfor -%}{%- endfor -%}
+  </div>
+  {%- endif -%}
+
+  {%- if viz_only.size > 0 -%}
+  <div class="venn-node venn-node--viz">
+    {%- for yg in viz_only -%}{%- for item in yg.items -%}
+      {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
+    {%- endfor -%}{%- endfor -%}
+  </div>
+  {%- endif -%}
+
+  {%- if ai_hci.size > 0 -%}
+  <div class="venn-node venn-node--ai-hci">
+    {%- for yg in ai_hci -%}{%- for item in yg.items -%}
+      {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
+    {%- endfor -%}{%- endfor -%}
+  </div>
+  {%- endif -%}
+  </div>
+</div>
+
+{%- if triple.size > 0 -%}
+<div class="venn-below">
+  <span class="venn-below-title">Current focus</span>
+  {%- for yg in triple -%}{%- for item in yg.items -%}
+    {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
+  {%- endfor -%}{%- endfor -%}
+</div>
+{%- endif -%}

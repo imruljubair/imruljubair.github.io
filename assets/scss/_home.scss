@@ -1,0 +1,717 @@
+// Renovated homepage — simple, single-page layout
+body {
+  color: $ink-color;
+}
+
+.container {
+  max-width: 880px;
+}
+
+// Nav ------------------------------------------------------------
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: $base-background-color;
+  border-bottom: 1px solid $light-gray-color;
+  margin-bottom: 0;
+}
+
+.nav {
+  min-height: auto;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.nav-name {
+  font-weight: 700;
+  font-size: rem(16);
+  color: $ink-color;
+
+  &:hover {
+    color: $accent-color;
+  }
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  a {
+    color: $medium-gray-color;
+    font-size: rem(14);
+    font-weight: 500;
+
+    &:hover {
+      color: $accent-color;
+    }
+  }
+}
+
+// Hero -------------------------------------------------------------
+.hero {
+  padding: 4em 0 2em;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 2.5em;
+  align-items: center;
+}
+
+.hero-photo img {
+  width: 100%;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.hero-intro {
+  margin: 0 0 0.5em;
+  font-size: rem(17);
+  font-weight: 400;
+  line-height: 1.5;
+  color: $ink-color;
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+// Container for the paragraphs in _data/bio.yml — each arrives as its own <p>
+// from markdownify, so the type is styled on the children.
+.hero-bio {
+  max-width: 46em;
+
+  p {
+    margin: 0 0 0.7em;
+    font-size: rem(16);
+    color: $dark-gray-color;
+  }
+
+  p:last-child {
+    margin-bottom: 1em;
+  }
+
+  a {
+    @extend .link;
+  }
+}
+
+// Sits inline at the start of .hero-links; plain text, not a link.
+.hero-email {
+  font-size: rem(13);
+  color: $medium-gray-color;
+}
+
+// Links sitting under the bio (no section title, no divider).
+.hero-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5em 1.8em;
+  margin-top: 1.8em;
+
+  a {
+    font-size: rem(13);
+    font-weight: 500;
+    color: $medium-gray-color;
+
+    &:hover {
+      color: $accent-color;
+    }
+  }
+}
+
+// Venn diagram section ----------------------------------------------
+.venn-section {
+  padding: 1em 0 3em;
+}
+
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  margin: 0 0 1.75em;
+  font-size: rem(13);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $medium-gray-color;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1 1 auto;
+    height: 1px;
+    background: $light-gray-color;
+  }
+}
+
+.venn-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 20px; // room for nodes that hug the left/right image edge
+}
+
+.venn-scroll-hint {
+  display: none;
+  margin: 0.6em 0 0;
+  text-align: center;
+  font-size: rem(12);
+  color: $medium-gray-color;
+}
+
+// ── Diagram calibration ────────────────────────────────────────────────────
+// If assets/images/venn.png is redrawn, update only this block: the image's
+// intrinsic pixel size, and each leader-line endpoint as a percentage of it.
+// Everything else is derived.
+$venn-img-w: 1695;
+$venn-img-h: 994;
+$venn-width: 320px;
+$venn-rendered-h: $venn-width * $venn-img-h / $venn-img-w;
+
+$venn-dot-ai-x: 96.27%;
+$venn-dot-ai-y: 12.52%;
+$venn-dot-viz-x: 0.96%;
+$venn-dot-viz-y: 24.99%;
+$venn-dot-ai-hci-x: 98.95%;
+$venn-dot-ai-hci-y: 70.21%;
+$venn-dot-triple-x: 5.09%;
+$venn-dot-triple-y: 84.30%;
+
+// Extra leftward nudge for the Current-focus block. Sitting exactly on its
+// endpoint runs the block's first line under the Viz circle, which reaches in
+// to ~25% of the image width at that height. Increase the magnitude to move
+// the block further left, decrease it to bring it back toward the endpoint.
+$venn-triple-nudge-x: -72px;
+
+.venn-wrap {
+  width: $venn-width;
+  // Top padding gives the AI list room to sit above its dot without being
+  // clipped by .venn-scroll's (forced-by-overflow-x:auto) overflow-y: auto.
+  padding-top: 30px;
+  flex: 0 0 auto;
+}
+
+// Wraps the image exactly, so label percentages are image percentages.
+.venn-canvas {
+  position: relative;
+}
+
+.venn-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.venn-node {
+  position: absolute;
+  white-space: nowrap;
+  line-height: 1.5;
+  font-size: 13px;
+  color: $ink-color;
+}
+
+// Each block's FIRST line sits level with its leader-line endpoint (-0.75em is
+// half of the 1.5 line-height), so lists always grow downwards, away from the
+// diagram — adding works can never push a label up out of the visible area.
+.venn-node--ai {
+  left: $venn-dot-ai-x;
+  top: $venn-dot-ai-y;
+  transform: translate(10px, -0.75em);
+  text-align: left;
+}
+
+.venn-node--ai-hci {
+  left: $venn-dot-ai-hci-x;
+  top: $venn-dot-ai-hci-y;
+  transform: translate(10px, -0.75em);
+  text-align: left;
+}
+
+.venn-node--viz {
+  left: $venn-dot-viz-x;
+  top: $venn-dot-viz-y;
+  transform: translate(calc(-100% - 10px), -0.75em);
+  text-align: right;
+}
+
+// Stays in normal flow (unlike the other three) so .venn-scroll grows to fit
+// it however many works are listed. Its endpoint sits near the image's left
+// edge, so the block is left-aligned and its LEFT edge — not its centre — is
+// placed on the endpoint; centring would hang it off the side of the diagram.
+// translateX's 50% is half the block's own width, which cancels the flex
+// centring and makes the result independent of how wide the text runs.
+.venn-below {
+  margin-top: ($venn-dot-triple-y - 100%) / 100% * $venn-rendered-h + 10px;
+  transform: translateX(calc(50% - #{(50% - $venn-dot-triple-x) / 100% * $venn-width - $venn-triple-nudge-x}));
+  text-align: left;
+  font-size: 13px;
+  color: $ink-color;
+}
+
+.venn-below-title {
+  display: block;
+  margin-bottom: 0.2em;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $medium-gray-color;
+}
+
+.venn-item {
+  display: block;
+  cursor: default;
+  transition: color $base-duration $base-timing,
+              opacity $base-duration $base-timing;
+}
+
+// Set while a project card is hovered, so the work it points at stands out.
+.venn-scroll.is-dimming .venn-item:not(.is-highlighted) {
+  opacity: 0.3;
+}
+
+// Added by JS to works that have a matching project card — clicking one
+// scrolls to that card rather than following its external link.
+.venn-item.has-card {
+  cursor: pointer;
+}
+
+.venn-item.is-highlighted {
+  color: $accent-color;
+  // A box-shadow halo rather than padding/font-weight: those would change the
+  // element's size and nudge the carefully positioned labels on hover.
+  background: rgba($accent-color, 0.12);
+  border-radius: 2px;
+  box-shadow: 0 0 0 3px rgba($accent-color, 0.12);
+}
+
+.venn-node a,
+.venn-below a {
+  color: inherit;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Pin the diagram while the cards scroll past it, so hovering a card in the
+// second row still shows its highlight.
+//
+// The `can-pin` class and the `top` offset are both set by JS in
+// _includes/projects.html: whether there is room depends on the diagram's
+// height, which grows with the number of works in _data/works.csv, so a fixed
+// media-query threshold would drift out of date. Without room for the diagram
+// AND a full card beneath it, pinning eats the screen and hides the very card
+// the user is pointing at, so it stays in normal flow instead.
+// z-index sits under .site-header (10) so it tucks beneath the nav.
+.venn-section.can-pin .venn-scroll {
+  position: sticky;
+  z-index: 1;
+  background: $base-background-color;
+  padding-bottom: 0.75em;
+}
+
+// Project cards -----------------------------------------------------------
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6em 1.4em;
+  margin-top: 3em;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $light-gray-color;
+  border-radius: $base-border-radius;
+  overflow: hidden;
+  background: $base-background-color;
+  transition: border-color $base-duration $base-timing,
+              box-shadow $base-duration $base-timing;
+
+  &:hover {
+    border-color: darken($light-gray-color, 8%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  // Set when a work in the diagram is clicked; clears on Escape or a
+  // second click on the same work.
+  &.is-focused {
+    border-color: $accent-color;
+    box-shadow: 0 0 0 3px rgba($accent-color, 0.18);
+  }
+}
+
+.project-thumb {
+  aspect-ratio: 16 / 9;
+  background: $secondary-background-color;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+    // The ratio is set on the image itself, not inherited via height: 100%.
+    // A percentage height resolves against an indefinite height and falls back
+    // to `auto`, letting a non-16:9 source render at its own ratio and stretch
+    // the card taller than its neighbours.
+    aspect-ratio: 16 / 9;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.project-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 0.9em 1em 1em;
+}
+
+.project-name {
+  margin: 0 0 0.35em;
+  font-size: rem(14.5);
+  font-weight: 700;
+  line-height: 1.3;
+  color: $ink-color;
+}
+
+.project-desc {
+  // Pushes .project-links to the card's bottom edge so the icon rows of
+  // adjacent cards line up even when descriptions differ in length.
+  flex: 1 1 auto;
+  margin: 0 0 0.9em;
+  font-size: rem(12.5);
+  line-height: 1.5;
+  color: $dark-gray-color;
+
+  a {
+    @extend .link;
+  }
+}
+
+.project-links {
+  display: flex;
+  align-items: center;
+  gap: 0.85em;
+
+  a {
+    display: inline-flex;
+    color: $medium-gray-color;
+
+    &:hover {
+      color: $accent-color;
+    }
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+// Experience timeline --------------------------------------------------
+.experience-section {
+  padding: 1em 0 3em;
+}
+
+.experience-scroll {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  // Fixed first-row height: the "above" items grow upward from the axis, so
+  // this must clear the tallest of them (role + a wrapped 2-3 line org name)
+  // or they get clipped by .experience-scroll's overflow.
+  grid-template-rows: 76px 0 auto;
+  grid-auto-flow: column;
+  column-gap: 0.5em;
+  min-width: 640px;
+  max-width: 760px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.timeline-item {
+  display: contents;
+}
+
+.timeline-above,
+.timeline-below {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+  text-align: center;
+}
+
+.timeline-above {
+  justify-content: flex-end;
+  padding-bottom: 0.75em;
+}
+
+.timeline-below {
+  padding-top: 0.75em;
+}
+
+// A single line spanning the full width, positioned as an overlay rather
+// than a grid item — a grid item spanning every column would otherwise
+// disrupt the auto-placement (grid-auto-flow: column) of the other items.
+.timeline-line {
+  position: absolute;
+  top: 76px;
+  left: 20px;
+  right: 20px;
+  height: 0;
+  border-top: 1.5px dashed $medium-gray-color;
+}
+
+.timeline-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -10px;
+  transform: translateY(-50%);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid $medium-gray-color;
+}
+
+.timeline-axis {
+  grid-row: 2;
+  position: relative;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: $dark-gray-color;
+}
+
+.timeline-role,
+.timeline-dept,
+.timeline-org,
+.timeline-year {
+  margin: 0;
+  font-family: $base-font-family;
+  font-size: rem(12);
+  font-weight: 400;
+  line-height: 1.3;
+  color: $ink-color;
+  white-space: nowrap;
+}
+
+// Institution names are the only long strings here; letting just them wrap
+// keeps full names without widening every column to fit them on one line.
+.timeline-org {
+  white-space: normal;
+  text-wrap: balance;
+}
+
+.timeline-org {
+  color: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Work sections -------------------------------------------------------
+.section-title {
+  margin: 0 0 0.4em;
+  font-size: rem(24);
+  font-weight: 700;
+}
+
+.section-lead {
+  margin: 0 0 1.5em;
+  color: $dark-gray-color;
+  max-width: 46em;
+
+  a {
+    @extend .link;
+  }
+}
+
+.work-section {
+  padding: 3em 0;
+}
+
+.work-section--alt {
+  background: $secondary-background-color;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5em;
+}
+
+.work-card {
+  h3 {
+    margin: 0 0 0.4em;
+    font-size: rem(16);
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    font-size: rem(14.5);
+    color: $dark-gray-color;
+  }
+
+  a {
+    @extend .link;
+    font-weight: 600;
+  }
+
+  .venue {
+    display: inline-block;
+    margin-left: 0.2em;
+    padding: 0.05em 0.5em;
+    font-size: rem(11.5);
+    font-weight: 600;
+    color: $medium-gray-color;
+    background: $secondary-background-color;
+    border-radius: 1em;
+  }
+}
+
+.work-section--alt .venue {
+  background: $base-background-color;
+}
+
+.section-more {
+  margin: 1.8em 0 0;
+
+  a {
+    @extend .link;
+    font-weight: 600;
+  }
+}
+
+// Awards ---------------------------------------------------------------
+.awards-section {
+  padding: 3em 0;
+}
+
+.awards-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: baseline;
+    gap: 1em;
+    padding: 0.4em 0;
+    font-size: rem(13);
+    color: $dark-gray-color;
+  }
+}
+
+.award-year {
+  flex: 0 0 auto;
+  font-weight: 700;
+  color: $ink-color;
+  font-variant-numeric: tabular-nums;
+}
+
+// Footer -----------------------------------------------------------------
+.site-footer {
+  border-top: 1px solid $light-gray-color;
+  padding: 2em 0;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8em;
+
+  p {
+    margin: 0;
+    font-size: rem(13);
+    color: $medium-gray-color;
+  }
+}
+
+// Responsive ---------------------------------------------------------------
+@media (max-width: 780px) {
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 840px) {
+  .venn-scroll {
+    justify-content: flex-start;
+  }
+
+  .venn-scroll-hint {
+    display: block;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-photo {
+    width: 120px;
+    margin: 0 auto;
+  }
+
+  .nav-links {
+    gap: 1em;
+  }
+
+  .footer-inner {
+    justify-content: center;
+    text-align: center;
+  }
+}

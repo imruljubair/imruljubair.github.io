@@ -1,38 +1,42 @@
-<section class="intro">
+<section class="hero" id="about">
   <div class="container">
-  <p class="lead">
-  <!--<div<div class="portrait"><img src="/assets/images/mypic.jpg"></div>-->
-  
-  <div class="portrait"><img src="/assets/images/mypic-bg.png"></div>
-	<p style="font-size:90%;  text-align:justify">I am doing PhD in Computer Science at the <a href="https://www.colorado.edu/"; style="font-weight:bold">University of Colorado Boulder</a> under the supervision of <a href= "https://www.colorado.edu/cs/tom-yeh"; style="font-weight:bold">Dr. Tom Yeh</a> and working in the <a href="https://www.baic.center/home" ; style="font-weight:bold">Center for Brain, AI and Child (BAIC)</a> as a Research Assistant. Before that, I completed MSc from the <a href="http://www.ucalgary.ca/cpsc" ; style="font-weight:bold">University of Calgary</a> under <a href="http://pages.cpsc.ucalgary.ca/~ualim/"; style="font-weight:bold">Dr. Usman R. Alim</a>. I was a researcher in the <a href="http://jungle.cpsc.ucalgary.ca/wiki/">Graphics Jungle Lab</a>, and I collaborated with the <a href="https://www.dkrz.de/about-en">German Climate Computing Centre</a>. I obtained my BSc in Computer Science and IT from the <a href="http://www.iutoic-dhaka.edu/">Islamic University of Technology</a>.
-    <!-- Moreover, I collaborated with <a href="https://www.cs.ubc.ca/~rhodin/web/">Dr. Helge Rhodin</a> of <a href="https://www.cs.ubc.ca/">UBC</a>.-->
-    &nbsp; 
-</p>
-</p>
-</div>
-<div class="container"><a href="{{ '/cv/CV_MIJubair.pdf' | prepend: site.baseurl }}">CV</a> | <a href="https://twitter.com/ImrulJubair">Twitter</a> | <a href="https://www.linkedin.com/in/imruljubair">Linkedin</a> | <a href="https://orcid.org/0000-0003-0112-7524
-  ">ORCiD</a> | <a href="http://scholar.google.com/citations?user=H4-yZ3wAAAAJ&hl=en">Scholar</a></div>
+    <p class="section-kicker"><span>About</span></p>
+    <div class="hero-grid">
+      <div class="hero-photo">
+        <img src="{{ '/assets/images/mypic-bg.png' | prepend: site.baseurl }}" alt="Portrait of Mohammad Imrul Jubair">
+      </div>
+      <div class="hero-info">
+        {%- comment -%}
+          markdownify wraps its output in <p>, which is stripped here so the
+          heading text can still live in an <h1> while accepting Markdown.
+        {%- endcomment -%}
+        <h1 class="hero-intro">{{ site.data.bio.heading | markdownify | remove: '<p>' | remove: '</p>' | strip }}</h1>
+        <div class="hero-bio">
+          {%- for para in site.data.bio.paragraphs -%}
+            {{ para | markdownify }}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+    <div class="hero-links">
+      {%- if site.data.bio.email and site.data.bio.email != "" -%}
+      <span class="hero-email">{{ site.data.bio.email }}</span>
+      {%- endif -%}
+      <a href="{{ '/cv/Jubair-CV-2026.docx' | prepend: site.baseurl }}">CV</a>
+      <a href="http://scholar.google.com/citations?user=H4-yZ3wAAAAJ&amp;hl=en">Google Scholar</a>
+      <a href="https://github.com/imruljubair">GitHub</a>
+      <a href="https://www.linkedin.com/in/imruljubair">LinkedIn</a>
+    </div>
+  </div>
 </section>
 
-<section class="intro">
+<section class="venn-section" id="areas">
   <div class="container">
-  <h2 class="category-title" style="font-size:130%"> Awards, Scholarships & Grants</h2>
-  <ol style="font-size:90%; list-style-type:circle;  text-align:justify">
-  <li>[Aug 2022] Early Career Professional Development Fellowship, Computer Science, University of Colorado Boulder.</li>
-  <li>[Aug 2022] Departmental Fellowship, Computer Science, University of Colorado Boulder.</li>
-  <li>[Nov 2021] Conference Grant, VISAPP 2022.</li>
-  <li>[Oct 2016] Workshop Grant, German Climate Computing Center (DKRZ).</li>
-  <li>[Oct 2016] CPSC Travel Award, University of Calgary.</li>
-  <li>[Sep 2015] Research Award (2nd year of MSc), University of Calgary.</li>
-  <li>[Sep 2014] Research Award (1st year of MSc), University of Calgary.</li>
-  <li>[Sep 2014] International Recruitment Graduate Award, University of Calgary.</li>
-  <li>[Sep 2014] International Student Differential Fee Reimbursement Award,University of Calgary.</li>
-  <li>[Jan 2008 - Oct 2011] OIC Undergraduate Student Scholarship, Islamic University of Technology.</li>
-  </ol>
+    <p class="section-kicker"><span>Areas</span></p>
+    <div class="venn-scroll">
+      {% include venn-diagram.html %}
+    </div>
+    <p class="venn-scroll-hint">Scroll to see the full diagram &rarr;</p>
+    {% include projects.html %}
   </div>
-  
-<div class="container">
-<img src="/assets/images/logos.png">
-</div>
-
 </section>

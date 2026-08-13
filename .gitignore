@@ -1,0 +1,14 @@
+# Jekyll build output — GitHub Pages rebuilds this from source, so it should
+# never be committed. Anything placed here by hand is destroyed on every build.
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+
+# Local bundler state
+/vendor/
+/.bundle/
+Gemfile.lock
+
+# macOS
+.DS_Store

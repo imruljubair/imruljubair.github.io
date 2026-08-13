@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270" width="480" height="270" role="img" aria-label="Placeholder image">
+  <rect width="480" height="270" fill="#f0f1f4"/>
+  <g fill="none" stroke="#c3c6cf" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="186" y="96" width="108" height="80" rx="6"/>
+    <circle cx="212" cy="122" r="9"/>
+    <path d="M186 156l26-24 20 18 22-20 26 24v14a6 6 0 0 1-6 6h-88a6 6 0 0 1-6-6z"/>
+  </g>
+  <text x="240" y="206" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" fill="#9a9ea9">image / gif</text>
+</svg>

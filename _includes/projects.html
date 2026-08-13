@@ -1,25 +1,188 @@
-<section class="intro">
-  <div class="container">
-    <a name="projects"></a>
-    <h2 class="category-title" style="font-size:130%">Selected Projects</h2>
-    <!--<div style="height:125px;overflow:scroll;padding:5px;background-color:#FCFADD;color:#714D03;scrollbar-base-color:#DEBB07;">-->
-      <ul style="font-size:90%; list-style-type:circle">
-        <li><a href="project/project-page.html#persign">2022 | Persign</a></li>
-        <li><a href="project/project-page.html#tab">2021 | DIY Graphic Tab</a></li>
-	<!--  <li><a href="project/project-page.html#textedit">2021 | Editing Bengali Scene Text</a></li>-->
-	 <li><a href="project/project-page.html#bookcover">2021 | Book Cover Synthesis</a></li>
-		<li><a href="project/project-page.html#jamdani">2020 | AI-based Jamdani</a></li>
-	    <li><a href="project/project-page.html#i2i">2020 | Image to Image Attire Transfer</a></li>
-	<li><a href="project/project-page.html#shapes2toon">2020 | Cartoon from Geometric Shapes</a></li>
-        <li><a href="project/project-page.html#bdsl">2018 | BdSL detection</a></li>
-        <li><a href="project/project-page.html#cartoon">2018 | Toon2real</a></li>
-        <li><a href="project/project-page.html#whymyface">2018 | WhyMyFace</a></li>
-	    <li><a href="project/project-page.html#icomaps">2016 | Icosahedral Maps</a></li>
-    <!-- <li><a href="project/project-page.html#glslicon">2015 | Visualizing ICON Data using GLSL</a></li> -->
-		<li><a href="project/project-page.html#acm4icon">2014 | ACM for ICON Grid</a></li>
-      </ul>
-   <!-- </div>
-    <br>-->
-    <p style="font-size:80%">[see <a href="project/project-page.html">all projects</a>] </p>
-  </div>
-</section>
+{%- comment -%}
+  Project cards, driven by _data/projects.yml.
+  `link_order` fixes the icon order so it stays consistent across cards
+  regardless of the order the keys happen to appear in the YAML.
+{%- endcomment -%}
+{%- assign link_order = "code,paper,video,site" | split: "," -%}
+{%- assign link_labels = "Code,Paper,Video,Website" | split: "," -%}
+
+{%- if site.data.projects and site.data.projects.size > 0 -%}
+<div class="project-grid">
+  {%- for project in site.data.projects -%}
+  {%- comment -%}
+    Slugify each name in `work` so the card and the Venn label agree on a key
+    regardless of capitalisation, spaces, or punctuation ("HVSMR-2.0" both
+    sides becomes "hvsmr-2-0").
+  {%- endcomment -%}
+  {%- assign work_slugs = "" -%}
+  {%- if project.work and project.work != "" -%}
+    {%- assign work_list = project.work | split: "," -%}
+    {%- for w in work_list -%}
+      {%- assign slug = w | strip | slugify -%}
+      {%- assign work_slugs = work_slugs | append: slug | append: " " -%}
+    {%- endfor -%}
+  {%- endif -%}
+  <article class="project-card"{% if work_slugs != "" %} data-works="{{ work_slugs | strip }}"{% endif %}>
+    <div class="project-thumb">
+      {%- if project.image and project.image != "" -%}
+      <img src="{{ project.image | prepend: site.baseurl }}" alt="{{ project.name }}" loading="lazy">
+      {%- else -%}
+      <img src="{{ '/assets/images/projects/placeholder.svg' | prepend: site.baseurl }}" alt="" loading="lazy">
+      {%- endif -%}
+    </div>
+    <div class="project-body">
+      <h3 class="project-name">{{ project.name }}</h3>
+      {%- if project.description and project.description != "" -%}
+      <p class="project-desc">{{ project.description | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
+      {%- endif -%}
+      {%- if project.links -%}
+      <div class="project-links">
+        {%- for key in link_order -%}
+          {%- assign url = project.links[key] -%}
+          {%- if url and url != "" -%}
+          <a href="{{ url }}" target="_blank" rel="noopener"
+             title="{{ link_labels[forloop.index0] }}"
+             aria-label="{{ link_labels[forloop.index0] }} — {{ project.name }}">
+            {%- include icon.html type=key -%}
+          </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+    </div>
+  </article>
+  {%- endfor -%}
+</div>
+
+<script>
+/* Two-way link between the project cards and the Venn diagram:
+     card hover  -> highlights the work(s) it names in the diagram
+     work click  -> scrolls to and focuses the matching card(s)
+
+   Note: the `compress` layout strips newlines, so every comment in here must
+   be a block comment — a // comment would swallow the rest of the script. */
+(function () {
+  var scope = document.querySelector('.venn-scroll');
+  var grid = document.querySelector('.project-grid');
+  if (!scope || !grid) return;
+
+  var cards = [].slice.call(grid.querySelectorAll('.project-card[data-works]'));
+  var items = [].slice.call(scope.querySelectorAll('[data-work]'));
+  if (!cards.length || !items.length) return;
+
+  /* slug -> [cards], so a work can point at more than one card and vice versa. */
+  var cardsBySlug = {};
+  cards.forEach(function (card) {
+    (card.getAttribute('data-works') || '').split(' ').forEach(function (slug) {
+      if (!slug) return;
+      (cardsBySlug[slug] = cardsBySlug[slug] || []).push(card);
+    });
+  });
+
+  var pinned = null;  /* slug pinned by clicking a work */
+  var hovered = null; /* array of slugs from the card under the cursor */
+
+  function apply() {
+    var active = hovered || (pinned ? [pinned] : []);
+    var focusCards = (!hovered && pinned) ? (cardsBySlug[pinned] || []) : [];
+
+    items.forEach(function (el) {
+      el.classList.toggle('is-highlighted', active.indexOf(el.getAttribute('data-work')) !== -1);
+    });
+    scope.classList.toggle('is-dimming', active.length > 0);
+    cards.forEach(function (card) {
+      card.classList.toggle('is-focused', focusCards.indexOf(card) !== -1);
+    });
+  }
+
+  /* Lands the card just below the pinned diagram instead of behind it. */
+  function scrollToCard(card) {
+    var header = document.querySelector('.site-header');
+    var offset = (header ? header.getBoundingClientRect().height : 0) + 16;
+    if (getComputedStyle(scope).position === 'sticky') {
+      offset += scope.getBoundingClientRect().height;
+    }
+    var top = window.pageYOffset + card.getBoundingClientRect().top - offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
+  cards.forEach(function (card) {
+    function on() { hovered = (card.getAttribute('data-works') || '').split(' ').filter(Boolean); apply(); }
+    function off() { hovered = null; apply(); }
+    card.addEventListener('mouseenter', on);
+    card.addEventListener('mouseleave', off);
+    /* Keyboard users tabbing to a card's links get the same cue. */
+    card.addEventListener('focusin', on);
+    card.addEventListener('focusout', off);
+  });
+
+  items.forEach(function (el) {
+    var slug = el.getAttribute('data-work');
+    if (!cardsBySlug[slug]) return; /* no card for this work: leave its link alone */
+
+    var target = el.closest('a') || el;
+    el.classList.add('has-card');
+    /* Marks the element as "handled by us", so the click-anywhere-to-clear
+       listener below can tell a real selection from a dismissing click. */
+    target.setAttribute('data-work-trigger', '');
+    if (!target.title) target.title = 'Show project card';
+
+    target.addEventListener('click', function (e) {
+      /* Let modified clicks (new tab/window) follow the real link as usual. */
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      pinned = (pinned === slug) ? null : slug;
+      apply();
+      if (pinned) scrollToCard(cardsBySlug[slug][0]);
+    });
+  });
+
+  /* Pin the diagram only when the viewport can actually fit it plus a whole
+     card underneath. Measured rather than hard-coded, because the diagram's
+     height depends on how many works are listed, and because browser zoom
+     shrinks the effective viewport. */
+  var section = document.querySelector('.venn-section');
+  function updatePinning() {
+    if (!section) return;
+    var header = document.querySelector('.site-header');
+    var headerH = header ? header.getBoundingClientRect().height : 0;
+    var gap = 16;
+    var needed = headerH + scope.getBoundingClientRect().height + gap +
+                 cards[0].getBoundingClientRect().height;
+    var fits = window.innerWidth >= 841 && window.innerHeight >= needed;
+    section.classList.toggle('can-pin', fits);
+    if (fits) scope.style.top = headerH + 'px';
+  }
+  updatePinning();
+  window.addEventListener('load', updatePinning);
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updatePinning, 150);
+  });
+
+  /* Clicking anywhere that isn't a work label clears the selection, so there
+     is always an obvious way back to the undimmed default. Runs after the
+     label's own handler, which is why it ignores clicks on a trigger. */
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-work-trigger]')) return;
+    var changed = false;
+    if (pinned) { pinned = null; changed = true; }
+    /* Touch devices fire mouseenter but frequently never mouseleave, which can
+       strand the diagram in its dimmed state. Clearing the hover here too
+       guarantees a click always returns everything to normal — except when the
+       click is on a card, where the cursor genuinely is still hovering. */
+    if (hovered && !e.target.closest('.project-card')) { hovered = null; changed = true; }
+    if (changed) apply();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (!pinned && !hovered) return;
+    pinned = null;
+    hovered = null;
+    apply();
+  });
+})();
+</script>
+{%- endif -%}

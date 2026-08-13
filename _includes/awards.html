@@ -1,0 +1,15 @@
+<section class="awards-section" id="awards">
+  <div class="container">
+    <p class="section-kicker"><span>Awards</span></p>
+    {%- comment -%}
+      Rendered in the order they appear in _data/awards.csv. Year values like
+      "2025 – 2026" aren't sortable as numbers, so the file's own order is the
+      display order — reorder rows there to change it.
+    {%- endcomment -%}
+    <ul class="awards-list">
+      {%- for item in site.data.awards -%}
+      <li><span class="award-year">{{ item.year }}</span> {{ item.award }}{% if item.institution and item.institution != "" %}, {{ item.institution }}{% endif %}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>

@@ -1,33 +1,34 @@
 // Typography
-$base-font-family: 'Times', sans-serif;
+$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
 $base-font-size: 1em;
 
 // Line height
-$base-line-height: 1.5;
+$base-line-height: 1.6;
 $heading-line-height: 1.2;
 
 // Other Sizes
-$base-border-radius: .52em;
+$base-border-radius: .5em;
 $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
 // Colors
-$primary-color: #000;
-$action-color: $primary-color;
+$ink-color: #16181d;
+$primary-color: $ink-color;
+$accent-color: #2f5fdd;
+$action-color: $accent-color;
 $white-color: #fff;
 $black-color: #000;
-//$blue-color: #0086B3;
-$blue-color: rgb(0,0,238);
-$dark-gray-color: #333;
-$medium-gray-color: #999;
-$light-gray-color: #ccc;
+$blue-color: $accent-color;
+$dark-gray-color: #3a3d45;
+$medium-gray-color: #767a85;
+$light-gray-color: #e4e5e9;
 
 // Font Colors
-$base-font-color: $black-color;
+$base-font-color: $ink-color;
 
 // Border
 $base-border-color: $light-gray-color;
@@ -35,7 +36,7 @@ $base-border: 1px solid $base-border-color;
 
 // Background Colors
 $base-background-color: $white-color;
-$secondary-background-color: tint($base-border-color, 80%);
+$secondary-background-color: #f6f7f9;
 
 // Forms
 $form-box-shadow: inset 0 1px 3px rgba($black-color, 0.06);
