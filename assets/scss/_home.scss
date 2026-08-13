@@ -460,9 +460,16 @@ $venn-width: 320px;
   padding: 1em 0 3em;
 }
 
+// justify-content: center on a scrollable flex container only centers content
+// that FITS — once it overflows, the browser centers it around the container's
+// midpoint instead, pushing the overflow equally off both edges. The right
+// side stays reachable by scrolling, but scrollLeft can't go negative, so the
+// left side is permanently clipped with no way back to it. flex-start avoids
+// the trap entirely: when the timeline fits (no scrolling needed) it's
+// visually identical, and when it doesn't, scrollLeft: 0 is the true left edge.
 .experience-scroll {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -470,6 +477,12 @@ $venn-width: 320px;
 .timeline {
   position: relative;
   display: grid;
+  // Auto margins center the timeline when it's narrower than the scroll
+  // container (the normal desktop case); once it's wider, they collapse to 0
+  // rather than going negative, which keeps the left edge flush with
+  // scrollLeft: 0 instead of hiding content there. justify-content: center on
+  // the parent can't do this — see the note above .experience-scroll.
+  margin: 0 auto;
   grid-template-columns: repeat(4, minmax(150px, 1fr));
   // Fixed first-row height: the "above" items grow upward from the axis, so
   // this must clear the tallest of them (role + a wrapped 2-3 line org name)
