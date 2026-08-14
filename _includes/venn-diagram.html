@@ -110,10 +110,9 @@
 
   var NS = 'http://www.w3.org/2000/svg';
 
-  /* Aim at the first line the reader can actually see, so the line lands on the
-     middle of a line of text. Most headings are hidden from sight on wide
-     screens but kept in the DOM for screen readers, clipped to 1px — hence the
-     height test rather than simply taking the first child. */
+  /* Aim at the first line the reader can actually see on wide screens. Most
+     headings are clipped for sighted readers but retained for screen readers,
+     hence the height test rather than simply taking the first child. */
   function firstVisibleLine(node) {
     var kids = node.children;
     for (var i = 0; i < kids.length; i++) {
@@ -139,11 +138,16 @@
 
       var d = dot.getBoundingClientRect();
       var h = firstVisibleLine(node).getBoundingClientRect();
+      var n = node.getBoundingClientRect();
 
       var sx = d.left + d.width / 2 - box.left;
       var sy = d.top + d.height / 2 - box.top;
-      var tx = h.left - box.left - 9;
-      var ty = h.top + h.height / 2 - box.top;
+      var compact = window.matchMedia('(max-width: 700px)').matches;
+      /* On phones the groups form a 2x2 grid below the diagram. Land each
+         connector on a small anchor centred just above its group so the line
+         never runs through the work names. */
+      var tx = compact ? n.left + n.width / 2 - box.left : h.left - box.left - 9;
+      var ty = compact ? n.top - box.top - 8 : h.top + h.height / 2 - box.top;
 
       var path = document.createElementNS(NS, 'path');
       path.setAttribute('class', 'venn-link');

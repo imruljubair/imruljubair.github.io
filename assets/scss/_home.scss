@@ -317,9 +317,9 @@ $venn-width: 320px;
   }
 }
 
-// Narrow screens: side-by-side needs roughly 700px, so the two columns collapse
-// to one and the diagram sits above its lists. The lines are hidden rather than
-// redrawn — near-vertical lines through stacked text would add nothing.
+// Narrow screens: the diagram sits above a compact 2x2 group layout. Connector
+// lines fan down from the diagram to each group, preserving the relationship
+// without forcing four very narrow columns or horizontal scrolling.
 @media (max-width: 700px) {
   .venn-layout {
     grid-template-columns: 1fr;
@@ -327,20 +327,19 @@ $venn-width: 320px;
     max-width: $venn-width;
   }
 
-  .venn-links {
-    display: none;
+  .venn-lists {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "viz ai"
+      "triple ai-hci";
+    gap: 2.2em 1em;
   }
 
-  // With no lines here, the headings are the only thing naming each group, so
-  // they all come back into view.
-  .venn-node .venn-node-title {
-    position: static;
-    width: auto;
-    height: auto;
-    margin: 0 0 0.15em;
-    overflow: visible;
-    clip: auto;
-  }
+  .venn-node--ai     { grid-area: ai; }
+  .venn-node--viz    { grid-area: viz; }
+  .venn-node--ai-hci { grid-area: ai-hci; }
+  .venn-node--triple { grid-area: triple; }
 }
 
 // Pin the diagram while the cards scroll past it, so hovering a card in the
