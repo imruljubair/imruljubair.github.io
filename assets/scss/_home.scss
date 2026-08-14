@@ -192,6 +192,7 @@ $venn-width: 320px;
 .venn-links {
   position: absolute;
   inset: 0;
+  z-index: 2;
   width: 100%;
   height: 100%;
   pointer-events: none;
@@ -208,9 +209,8 @@ $venn-width: 320px;
   fill: $medium-gray-color;
 }
 
-// Lifted above the line overlay so lines from the inner regions pass behind the
-// circles rather than across them. The fills are translucent, so a line still
-// reads faintly underneath instead of vanishing.
+// The connector overlay sits above the diagram so translucent overlapping
+// fills cannot soften or obscure the lines.
 .venn-diagram {
   position: relative;
   z-index: 1;
@@ -264,7 +264,9 @@ $venn-width: 320px;
 
 .venn-node {
   position: relative;
-  z-index: 1;
+  // Boxes stay above the connector overlay, cleanly clipping each line at the
+  // border where it terminates.
+  z-index: 3;
   width: fit-content;
   max-width: 100%;
   padding: 0.7em 0.8em;
