@@ -258,10 +258,19 @@ $venn-width: 320px;
 .venn-lists {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 1.15em;
 }
 
 .venn-node {
+  position: relative;
+  z-index: 1;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.7em 0.8em;
+  border: 1px solid $light-gray-color;
+  border-radius: 0.5em;
+  background: $base-background-color;
   font-size: rem($areas-font-size);
   line-height: 1.5;
   color: $ink-color;
@@ -333,13 +342,14 @@ $venn-width: 320px;
     grid-template-areas:
       "viz ai"
       "triple ai-hci";
+    align-items: start;
     gap: 2.2em 1em;
   }
 
-  .venn-node--ai     { grid-area: ai; }
-  .venn-node--viz    { grid-area: viz; }
-  .venn-node--ai-hci { grid-area: ai-hci; }
-  .venn-node--triple { grid-area: triple; }
+  .venn-node--ai     { grid-area: ai;     justify-self: end; }
+  .venn-node--viz    { grid-area: viz;    justify-self: start; }
+  .venn-node--ai-hci { grid-area: ai-hci; justify-self: end; }
+  .venn-node--triple { grid-area: triple; justify-self: start; }
 }
 
 // Pin the diagram while the cards scroll past it, so hovering a card in the

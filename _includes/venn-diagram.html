@@ -110,17 +110,6 @@
 
   var NS = 'http://www.w3.org/2000/svg';
 
-  /* Aim at the first line the reader can actually see on wide screens. Most
-     headings are clipped for sighted readers but retained for screen readers,
-     hence the height test rather than simply taking the first child. */
-  function firstVisibleLine(node) {
-    var kids = node.children;
-    for (var i = 0; i < kids.length; i++) {
-      if (kids[i].getBoundingClientRect().height >= 8) return kids[i];
-    }
-    return node;
-  }
-
   function draw() {
     /* The stacked layout hides the overlay; drawing into it would be wasted
        work and the measurements would be meaningless. */
@@ -137,17 +126,16 @@
       if (!dot || !node) return;
 
       var d = dot.getBoundingClientRect();
-      var h = firstVisibleLine(node).getBoundingClientRect();
       var n = node.getBoundingClientRect();
 
       var sx = d.left + d.width / 2 - box.left;
       var sy = d.top + d.height / 2 - box.top;
       var compact = window.matchMedia('(max-width: 700px)').matches;
-      /* On phones the groups form a 2x2 grid below the diagram. Land each
-         connector on a small anchor centred just above its group so the line
-         never runs through the work names. */
-      var tx = compact ? n.left + n.width / 2 - box.left : h.left - box.left - 9;
-      var ty = compact ? n.top - box.top - 8 : h.top + h.height / 2 - box.top;
+      /* Phones connect to the top border of each box; wide screens connect to
+         its left-border midpoint. Both treatments make the line belong to the
+         complete group instead of visually selecting its first work name. */
+      var tx = compact ? n.left + n.width / 2 - box.left : n.left - box.left;
+      var ty = compact ? n.top - box.top : n.top + n.height / 2 - box.top;
 
       var path = document.createElementNS(NS, 'path');
       path.setAttribute('class', 'venn-link');
@@ -167,6 +155,20 @@
   draw();
   window.addEventListener('load', draw);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+
+  /* Content, zoom and font changes can alter either dimension without a
+     conventional window resize. Watch the measured pieces themselves so the
+     connectors always follow the boxes and diagram. */
+  if (window.ResizeObserver) {
+    var frame;
+    var observer = new ResizeObserver(function () {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(draw);
+    });
+    observer.observe(layout);
+    var measured = layout.querySelectorAll('.venn-diagram, .venn-node');
+    for (var i = 0; i < measured.length; i++) observer.observe(measured[i]);
+  }
 
   var t;
   window.addEventListener('resize', function () {
