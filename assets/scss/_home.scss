@@ -170,20 +170,22 @@ body {
 }
 
 // ── Diagram layout ─────────────────────────────────────────────────────────
-// Diagram in one column, every list stacked in the other. The leader lines
-// between them are drawn into .venn-links by the script in
-// _includes/venn-diagram.html from measured positions — nothing here fixes
-// where a line starts or ends, which is what kept them drifting before.
+// Wide screens place two groups on either side of the diagram. The leader
+// lines are drawn from measured positions by _includes/venn-diagram.html, so
+// they keep tracking the boxes as text, fonts, and viewport dimensions change.
 $venn-width: 320px;
 
 .venn-layout {
   position: relative;
   display: grid;
-  grid-template-columns: $venn-width 1fr;
-  gap: 4.5em;
+  grid-template-columns: minmax(0, 1fr) $venn-width minmax(0, 1fr);
+  grid-template-areas:
+    "ai  diagram  ai-hci"
+    "viz diagram  triple";
+  gap: 1.25em 2.25em;
   align-items: center;
   width: 100%;
-  max-width: 720px;
+  max-width: 100%;
 }
 
 // Full-bleed overlay the lines are drawn into. It deliberately has no viewBox,
@@ -205,6 +207,7 @@ $venn-width: 320px;
   stroke-width: 1;
 }
 
+.venn-link-start,
 .venn-link-end {
   fill: $medium-gray-color;
 }
@@ -212,6 +215,7 @@ $venn-width: 320px;
 // The connector overlay sits above the diagram so translucent overlapping
 // fills cannot soften or obscure the lines.
 .venn-diagram {
+  grid-area: diagram;
   position: relative;
   z-index: 1;
   width: 100%;
@@ -252,14 +256,22 @@ $venn-width: 320px;
 
 .venn-dot--ai     { fill: $venn-ai-ink; }
 .venn-dot--viz    { fill: $venn-viz-ink; }
-.venn-dot--ai-hci { fill: $venn-overlap-ink; }
+.venn-dot--ai-hci { fill: $medium-gray-color; stroke: none; }
 .venn-dot--triple { fill: $ink-color; }
 
+// On wide screens AI and Viz connect directly from their labels. Their dots
+// return on mobile, where the connectors fan downward from the diagram.
+@media (min-width: 701px) {
+  .venn-dot--ai,
+  .venn-dot--viz {
+    opacity: 0;
+  }
+}
+
 .venn-lists {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.15em;
+  // Let the four nodes participate directly in .venn-layout's desktop grid.
+  // The wrapper becomes a real nested grid again at the mobile breakpoint.
+  display: contents;
 }
 
 .venn-node {
@@ -328,17 +340,26 @@ $venn-width: 320px;
   }
 }
 
+.venn-node--ai     { grid-area: ai;     justify-self: end; }
+.venn-node--viz    { grid-area: viz;    justify-self: end; }
+.venn-node--ai-hci { grid-area: ai-hci; justify-self: start; }
+.venn-node--triple { grid-area: triple; justify-self: start; }
+
 // Narrow screens: the diagram sits above a compact 2x2 group layout. Connector
 // lines fan down from the diagram to each group, preserving the relationship
 // without forcing four very narrow columns or horizontal scrolling.
 @media (max-width: 700px) {
   .venn-layout {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "diagram"
+      "lists";
     gap: 1.6em;
     max-width: $venn-width;
   }
 
   .venn-lists {
+    grid-area: lists;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:

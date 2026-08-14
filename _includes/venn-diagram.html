@@ -12,7 +12,8 @@
 {%- assign triple = works | where: "type", "ai+viz+hci" | group_by: "year" | sort: "name" | reverse -%}
 
 {%- comment -%}
-  Diagram on one side, every list stacked on the other, joined by leader lines.
+  The diagram sits between two groups on each side on wide screens. On narrow
+  screens it moves above a 2x2 group grid. Both layouts use leader lines.
 
   The lines are drawn into .venn-links by the script at the end of this file,
   from the measured positions of the dots and the list headings. Nothing about
@@ -41,14 +42,14 @@
         <path class="venn-circle venn-circle--ai" d="M214.2,72.0 C214.3,84.6 205.3,101.7 195.2,109.9 C185.1,118.1 166.0,124.2 153.7,121.4 C141.5,118.6 127.3,104.7 121.6,92.9 C116.0,81.0 114.4,61.7 119.8,50.2 C125.2,38.7 141.5,26.5 154.0,23.8 C166.5,21.2 184.9,26.4 195.0,34.4 C205.0,42.5 214.2,59.4 214.2,72.0 Z"/>
       </g>
 
-      <text class="venn-area venn-area--ai" x="165" y="50" text-anchor="middle">AI</text>
-      <text class="venn-area venn-area--viz" x="95" y="145" text-anchor="middle">Viz</text>
-      <text class="venn-area venn-area--hci" x="218" y="157" text-anchor="middle">HCI</text>
+      <text class="venn-area venn-area--ai" x="165" y="58" text-anchor="middle">AI</text>
+      <text class="venn-area venn-area--viz" x="102" y="139" text-anchor="middle">Viz</text>
+      <text class="venn-area venn-area--hci" x="211" y="151" text-anchor="middle">HCI</text>
 
       <g class="venn-dots">
         <circle class="venn-dot venn-dot--ai" cx="196" cy="52" r="3.6"/>
         <circle class="venn-dot venn-dot--viz" cx="95" cy="88" r="3.6"/>
-        <circle class="venn-dot venn-dot--ai-hci" cx="198" cy="95" r="3.6"/>
+        <circle class="venn-dot venn-dot--ai-hci" cx="198" cy="95" r="2.6"/>
         <circle class="venn-dot venn-dot--triple" cx="158" cy="115" r="3.6"/>
       </g>
     </svg>
@@ -100,10 +101,10 @@
   var overlay = layout.querySelector('.venn-links');
   if (!overlay) return;
 
-  /* [slug, dot, list block] */
+  /* [slug, mobile/fallback dot, list block, optional desktop label source] */
   var pairs = [
-    ['ai', '.venn-dot--ai', '.venn-node--ai'],
-    ['viz', '.venn-dot--viz', '.venn-node--viz'],
+    ['ai', '.venn-dot--ai', '.venn-node--ai', '.venn-area--ai'],
+    ['viz', '.venn-dot--viz', '.venn-node--viz', '.venn-area--viz'],
     ['ai-hci', '.venn-dot--ai-hci', '.venn-node--ai-hci'],
     ['triple', '.venn-dot--triple', '.venn-node--triple']
   ];
@@ -111,8 +112,7 @@
   var NS = 'http://www.w3.org/2000/svg';
 
   function draw() {
-    /* The stacked layout hides the overlay; drawing into it would be wasted
-       work and the measurements would be meaningless. */
+    /* Guard against a temporarily hidden layout during page rendering. */
     if (getComputedStyle(overlay).display === 'none') return;
 
     var box = overlay.getBoundingClientRect();
@@ -125,16 +125,23 @@
       var node = layout.querySelector(p[2]);
       if (!dot || !node) return;
 
-      var d = dot.getBoundingClientRect();
+      var compact = window.matchMedia('(max-width: 700px)').matches;
+      var labelSource = !compact && p[3] ? layout.querySelector(p[3]) : null;
+      var d = (labelSource || dot).getBoundingClientRect();
       var n = node.getBoundingClientRect();
 
-      var sx = d.left + d.width / 2 - box.left;
+      /* AI and Viz lead out from just left of their label on wide screens.
+         The compact layout keeps using the region dots because its boxes sit
+         below the diagram rather than beside those labels. */
+      var sx = labelSource ? d.left - box.left - 4
+                           : d.left + d.width / 2 - box.left;
       var sy = d.top + d.height / 2 - box.top;
-      var compact = window.matchMedia('(max-width: 700px)').matches;
-      /* Phones connect to the top border of each box; wide screens connect to
-         its left-border midpoint. Both treatments make the line belong to the
-         complete group instead of visually selecting its first work name. */
-      var tx = compact ? n.left + n.width / 2 - box.left : n.left - box.left;
+      /* Phones connect to each box's top border. On wide screens the groups
+         flank the diagram, so connect to whichever vertical box edge faces
+         inward. This remains correct when content changes either box width. */
+      var leftSide = n.left + n.width / 2 < box.left + box.width / 2;
+      var tx = compact ? n.left + n.width / 2 - box.left
+                       : (leftSide ? n.right - box.left : n.left - box.left);
       var ty = compact ? n.top - box.top : n.top + n.height / 2 - box.top;
 
       var path = document.createElementNS(NS, 'path');
@@ -142,6 +149,17 @@
       path.setAttribute('d', 'M' + sx.toFixed(1) + ',' + sy.toFixed(1) +
                              ' L' + tx.toFixed(1) + ',' + ty.toFixed(1));
       overlay.appendChild(path);
+
+      /* AI and Viz use their labels as desktop origins, so add the same
+         visible connector dot that their former region markers provided. */
+      if (labelSource) {
+        var start = document.createElementNS(NS, 'circle');
+        start.setAttribute('class', 'venn-link-start');
+        start.setAttribute('cx', sx.toFixed(1));
+        start.setAttribute('cy', sy.toFixed(1));
+        start.setAttribute('r', '2.6');
+        overlay.appendChild(start);
+      }
 
       var end = document.createElementNS(NS, 'circle');
       end.setAttribute('class', 'venn-link-end');
