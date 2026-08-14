@@ -36,7 +36,7 @@
   work: The Architect
   image: /assets/images/projects/architect.png
   description: >-
-    Rebuilds deep learning math for forward pass and backprop inside Microsoft Excel, so every step is
+    Rebuilds deep learning math for forward pass and backprop inside MS Excel, so every step is
     visible in plain cells.
   links:
     code: https://github.com/imruljubair/The-Architect
