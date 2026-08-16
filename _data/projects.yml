@@ -108,3 +108,11 @@
     zoom levels.
   links:
     paper: https://ieeexplore.ieee.org/document/7429508/
+
+- name: toon2real
+  work: toon2real
+  image: /assets/images/projects/toon.png
+  description: >-
+    A method for converting cartoon images into realistic images using deep learning techniques.
+  links:
+    paper: https://ieeexplore.ieee.org/document/9288181
