@@ -74,7 +74,7 @@
 
 - name: PerSign
   work: PerSign
-  image: /assets/images/projects/persign.jpg
+  image: /assets/images/projects/persign.png
   description: >-
     Turns a photo of a person into that person signing, with face, skin and
     clothing intact.
