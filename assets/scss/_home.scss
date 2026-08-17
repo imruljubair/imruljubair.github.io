@@ -587,11 +587,12 @@ $venn-width: 320px;
   position: absolute;
   top: 0;
   left: 50%;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   transform: translate(-50%, -50%);
+  border: 2px solid $accent-color;
   border-radius: 50%;
-  background: $dark-gray-color;
+  background: $base-background-color;
 }
 
 .timeline-role,
@@ -607,9 +608,26 @@ $venn-width: 320px;
   white-space: nowrap;
 }
 
+// Visually separate each degree/job title from its institution and date while
+// keeping the department abbreviation inside the same label.
+.timeline-role {
+  padding: 0.22em 0.65em;
+  border-radius: 999px;
+  background: rgba($accent-color, 0.09);
+  font-weight: 600;
+}
+
+.timeline-year {
+  color: $accent-color;
+  font-weight: 600;
+}
+
 // Institution names are the only long strings here; letting just them wrap
 // keeps full names without widening every column to fit them on one line.
 .timeline-org {
+  padding: 0.25em 0.55em;
+  border-radius: 0.45em;
+  background: $secondary-background-color;
   white-space: normal;
   text-wrap: balance;
 }

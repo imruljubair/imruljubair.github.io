@@ -43,7 +43,7 @@ colors:
   background: "#ffffff"       # page background
   background_alt: "#f6f7f9"   # subtle tint (project image placeholder area)
 
-  # --- Areas / Venn diagram -------------------------------------------------
+  # --- Work / Venn diagram --------------------------------------------------
   venn:
     ai_fill: "#86efac"        # AI circle fill
     ai_ink: "#15803d"         # AI circle outline, area label, dot, list heading
@@ -55,7 +55,7 @@ colors:
     overlap_ink: "#0f766e"    # AI + HCI dot and list heading
 
 section_titles:
-  # The small "ABOUT" / "AREAS" / "JOURNEY" / "AWARDS" label above each
+  # The small "ABOUT" / "WORK" / "JOURNEY" / "AWARDS" label above each
   # section, with a horizontal line on either side of it.
   font_size: 14
   color: "#767a85"
