@@ -118,3 +118,13 @@
   links:
     paper: https://ieeexplore.ieee.org/document/9288181
     video: https://youtu.be/ySdTsOcYgyg?si=YvmFaacKnVpFoy9t
+
+- name: Text-to-Expression
+  work: Text-to-Expression
+  image: /assets/images/projects/face.png
+  description: >-
+    What you chat is what you get: a method for generating facial expressions from text descriptions.
+  links:
+    paper: https://arxiv.org/pdf/2112.01454
+    video: https://youtu.be/u3Jw35rtLNk?si=sXiDAbQdSOxAcGuj
+
