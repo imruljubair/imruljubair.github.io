@@ -22,14 +22,14 @@
 #                  site    → project website or live demo
 # ---------------------------------------------------------------------------
 
-- name: ggufvis2
-  work: ggufvis2
+- name: byhand CLI
+  work: byhand CLI
   image: /assets/images/projects/tinyllama-attention.png
   description: >-
     Visualizes what's inside a GGUF file, making a local LLM's structure
     readable at a glance within the terminal.
   links:
-    code: https://github.com/imruljubair/ggufvis2
+    code: https://imruljubair.github.io/byhand/
     video: https://youtu.be/6VitPJzfYKs?si=WzMj6fYr1jXrl7ov
 
 - name: The Architect
