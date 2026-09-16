@@ -53,6 +53,7 @@ colors:
     hci_ink: "#1d4ed8"        # HCI outline + area label (HCI has no list of
                                # its own — every HCI work overlaps AI or Viz)
     overlap_ink: "#0f766e"    # AI + HCI dot and list heading
+    current_focus_background: "#f5f2fb" # subtle violet tint for its box
 
 section_titles:
   # The small "ABOUT" / "WORK" / "JOURNEY" / "AWARDS" label above each

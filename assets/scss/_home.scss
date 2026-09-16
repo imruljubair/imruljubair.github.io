@@ -306,6 +306,7 @@ $venn-width: 320px;
 .venn-node--viz .venn-node-title    { color: $venn-viz-ink; }
 .venn-node--ai-hci .venn-node-title { color: $venn-overlap-ink; }
 .venn-node--triple .venn-node-title { color: $ink-color; }
+.venn-node--triple { background: $venn-current-focus-background; }
 
 // Where a leader line already identifies the region, its heading is redundant
 // on screen — but it is clipped rather than removed so screen readers, which
