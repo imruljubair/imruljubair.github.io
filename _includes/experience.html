@@ -53,3 +53,30 @@
     </div>
   </div>
 </section>
+
+<script>
+(function () {
+  var scroller = document.querySelector('.experience-scroll');
+  if (!scroller) return;
+
+  var mobile = window.matchMedia('(max-width: 700px)');
+  var positioned = false;
+
+  function showPresentFirst() {
+    if (!mobile.matches) {
+      positioned = false;
+      return;
+    }
+    if (positioned) return;
+
+    /* Start at the newest, rightmost milestone on narrow screens. The user
+       can then scroll left through the earlier stages of the journey. */
+    scroller.scrollLeft = scroller.scrollWidth - scroller.clientWidth;
+    positioned = true;
+  }
+
+  showPresentFirst();
+  window.addEventListener('load', showPresentFirst);
+  window.addEventListener('resize', showPresentFirst);
+})();
+</script>
