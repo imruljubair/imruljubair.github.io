@@ -1,0 +1,31 @@
+<section class="talk-section" id="talk">
+  <div class="container">
+    <p class="section-kicker"><span>Talks &amp; Workshops</span></p>
+    <ol class="talk-list">
+      {%- for talk in site.data.talks -%}
+      <li class="talk-item">
+        <time class="talk-year" datetime="{{ talk.year }}">{{ talk.year }}</time>
+        <div class="talk-details">
+          <h3 class="talk-title">{{ talk.title }}</h3>
+          <p class="talk-venue">
+            {{ talk.venue }}{% if talk.organization and talk.organization != "" %}<br>{{ talk.organization }}{% endif %}
+          </p>
+          {%- if talk.description and talk.description != "" -%}
+          <p class="talk-description">{{ talk.description }}</p>
+          {%- endif -%}
+          {%- if talk.topics and talk.topics != "" -%}
+          <p class="talk-topics"><strong>Topics:</strong> {{ talk.topics }}</p>
+          {%- endif -%}
+          {%- if talk.links and talk.links.size > 0 -%}
+          <p class="talk-links">
+            {%- for link in talk.links -%}
+            <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>{% unless forloop.last %}<span aria-hidden="true">&middot;</span>{% endunless %}
+            {%- endfor -%}
+          </p>
+          {%- endif -%}
+        </div>
+      </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>

@@ -7,6 +7,11 @@ body {
   max-width: $content-width;
 }
 
+// Keep in-page section headings visible below the sticky navigation.
+section[id] {
+  scroll-margin-top: 5em;
+}
+
 // Nav ------------------------------------------------------------
 .site-header {
   position: sticky;
@@ -714,6 +719,71 @@ $venn-width: 320px;
 }
 
 // Awards ---------------------------------------------------------------
+.talk-section {
+  padding: $section-gap 0;
+  font-family: $awards-font-family;
+}
+
+.talk-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.talk-item {
+  display: grid;
+  grid-template-columns: 4.5em minmax(0, 1fr);
+  gap: 1em;
+  padding: 0.65em 0;
+}
+
+.talk-year {
+  font-size: rem($awards-font-size);
+  font-weight: 700;
+  color: $ink-color;
+  font-variant-numeric: tabular-nums;
+}
+
+.talk-title {
+  margin: 0 0 0.2em;
+  font-size: rem($awards-font-size);
+  font-weight: 600;
+  line-height: 1.4;
+  color: $ink-color;
+}
+
+.talk-venue {
+  margin: 0;
+  font-size: rem($awards-font-size);
+  line-height: 1.5;
+  color: $dark-gray-color;
+}
+
+.talk-description,
+.talk-topics {
+  max-width: 48em;
+  margin: 0.35em 0 0;
+  font-size: rem($awards-font-size);
+  line-height: 1.5;
+  color: $dark-gray-color;
+}
+
+.talk-links {
+  display: flex;
+  gap: 0.55em;
+  margin: 0.45em 0 0;
+  font-size: rem(13);
+
+  a {
+    @extend .link;
+    font-weight: 600;
+  }
+
+  span {
+    color: $light-gray-color;
+  }
+}
+
 .awards-section {
   padding: $section-gap 0;
   font-family: $awards-font-family;
@@ -792,7 +862,11 @@ $venn-width: 320px;
   }
 
   .nav-links {
-    gap: 1em;
+    gap: 0.8em;
+
+    a {
+      font-size: rem(11.5);
+    }
   }
 
   .footer-inner {
