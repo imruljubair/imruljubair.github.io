@@ -312,12 +312,13 @@ $venn-width: 320px;
 .venn-node--ai-hci .venn-node-title { color: $venn-overlap-ink; }
 .venn-node--triple .venn-node-title {
   display: inline-block;
-  margin: -0.1em 0 0.4em;
-  padding: 0.2em 0.6em;
+  margin: -0.05em 0 0.35em;
+  padding: 0.12em 0.5em;
   border-radius: 999px;
   background: $venn-current-focus-background;
-  color: $white-color;
-  letter-spacing: 0.06em;
+  color: #625b7f;
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
 }
 
 // Where a leader line already identifies the region, its heading is redundant
