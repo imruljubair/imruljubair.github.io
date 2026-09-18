@@ -26,8 +26,8 @@
   work: byhand CLI
   image: /assets/images/projects/tinyllama-attention.png
   description: >-
-    Visualizes what's inside a GGUF file, making a local LLM's structure
-    readable at a glance within the terminal.
+    Visualizes Llama GGUF models from Ollama, files, or URLs in terminal,
+    HTML, and Excel.
   links:
     code: https://imruljubair.github.io/byhand/
     video: https://youtu.be/6VitPJzfYKs?si=WzMj6fYr1jXrl7ov
@@ -43,8 +43,8 @@
     video: https://youtu.be/HzAudh_PK8I?si=bdTV719cfS_8XoYx
     paper: https://arxiv.org/pdf/2608.13572
 
-- name: MLP Math Viz
-  work: MLP Math Viz
+- name: MLP Notebook
+  work: MLP Notebook
   image: /assets/images/projects/mlpmath.png
   description: >-
     A small language for exploring the math, graph and code for a multilayer perceptron, inside the Jupyter notebook.
@@ -127,4 +127,3 @@
   links:
     paper: https://arxiv.org/pdf/2112.01454
     video: https://youtu.be/u3Jw35rtLNk?si=sXiDAbQdSOxAcGuj
-
