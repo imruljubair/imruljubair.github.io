@@ -439,6 +439,7 @@ $venn-width: 320px;
 }
 
 .project-thumb {
+  position: relative;
   aspect-ratio: #{$card-image-ratio};
   background: $secondary-background-color;
   overflow: hidden;
@@ -454,6 +455,25 @@ $venn-width: 320px;
     height: auto;
     object-fit: cover;
   }
+}
+
+.project-venue {
+  position: absolute;
+  right: 0.55em;
+  bottom: 0.45em;
+  max-width: calc(100% - 1.3em);
+  padding: 0.14em 0.45em;
+  overflow: hidden;
+  border: 1px solid rgba($white-color, 0.16);
+  border-radius: 999px;
+  background: rgba($ink-color, 0.82);
+  color: $white-color;
+  font-size: rem(9.5);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .project-body {

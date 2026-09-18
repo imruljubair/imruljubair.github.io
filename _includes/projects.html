@@ -29,6 +29,9 @@
       {%- else -%}
       <img src="{{ '/assets/images/projects/placeholder.svg' | prepend: site.baseurl }}" alt="" loading="lazy">
       {%- endif -%}
+      {%- if project.venue and project.venue != "" -%}
+      <span class="project-venue">{{ project.venue }}</span>
+      {%- endif -%}
     </div>
     <div class="project-body">
       <h3 class="project-name">{{ project.name }}</h3>

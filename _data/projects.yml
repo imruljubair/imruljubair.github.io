@@ -11,6 +11,7 @@
 #                A name with no match in works.csv simply won't highlight.
 #   image        Path to a still or animated GIF, relative to the site root.
 #                Omit it and the card falls back to a neutral placeholder.
+#   venue        Optional publication venue or journal shown over the image.
 #   description  One or two sentences. ">-" folds the indented lines below it
 #                into a single paragraph. Accepts **bold** / [links](url).
 #                Keep under ~93 characters so it fits three lines on a card
@@ -35,6 +36,7 @@
 - name: The Architect
   work: The Architect
   image: /assets/images/projects/architect.png
+  venue: Technical Report
   description: >-
     Rebuilds deep learning math for forward pass and backprop inside MS Excel, so every step is
     visible in plain cells.
@@ -55,6 +57,7 @@
 - name: HVSMR-2.0
   work: HVSMR-2.0
   image: /assets/images/projects/hvsmr2.png
+  venue: Scientific Data
   description: >-
     A 3D cardiac MRI dataset for whole-heart segmentation in congenital heart
     disease.
@@ -64,6 +67,7 @@
 - name: BdSL36
   work: BdSL36
   image: /assets/images/projects/bdsl.png
+  venue: ACCV Workshop
   description: >-
     A dataset of 36 Bangladeshi sign letters for training and benchmarking
     recognition models.
@@ -75,6 +79,7 @@
 - name: PerSign
   work: PerSign
   image: /assets/images/projects/persign.png
+  venue: UIST Poster
   description: >-
     Turns a photo of a person into that person signing, with face, skin and
     clothing intact.
@@ -85,6 +90,7 @@
 - name: DIY Graphics Tab
   work: DIY Graphics Tab
   image: /assets/images/projects/diy.jpg
+  venue: AAAI Workshop
   description: >-
     A low-cost stand-in for a graphics tablet: a webcam tracks a pen moving on
     ordinary paper.
@@ -95,6 +101,7 @@
 - name: Icosahedral Maps
   work: Icosahedral Maps
   image: /assets/images/projects/icosa.png
+  venue: VMV
   description: >-
     A method for converting complex climate model data into 2D structure to
     visualize at multiple levels of detail.
@@ -104,6 +111,7 @@
 - name: Digital Earth
   work: Digital Earth
   image: /assets/images/projects/earth.png
+  venue: IEEE SciVis Poster
   description: >-
     Hexagonal box-spline wavelets for rendering Earth data smoothly across
     zoom levels.
@@ -113,6 +121,7 @@
 - name: toon2real
   work: toon2real
   image: /assets/images/projects/toon.png
+  venue: IEEE ICTAI
   description: >-
     A method for converting cartoon images into realistic images using deep learning techniques.
   links:
@@ -122,6 +131,7 @@
 - name: Text-to-Expression
   work: Text-to-Expression
   image: /assets/images/projects/face.png
+  venue: VISAPP
   description: >-
     What you chat is what you get: a method for generating facial expressions from text descriptions.
   links:
