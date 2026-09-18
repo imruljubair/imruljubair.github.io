@@ -53,7 +53,7 @@ colors:
     hci_ink: "#1d4ed8"        # HCI outline + area label (HCI has no list of
                                # its own — every HCI work overlaps AI or Viz)
     overlap_ink: "#0f766e"    # AI + HCI dot and list heading
-    current_focus_background: "#f5f2fb" # subtle violet tint for its box
+    current_focus_background: "#5b4fc4" # colored tag behind "Current focus"
 
 section_titles:
   # The small "ABOUT" / "WORK" / "JOURNEY" / "AWARDS" label above each
@@ -85,6 +85,6 @@ sections:
   hero_email_size: 13
   nav_brand_size: 16           # your name in the top-left of the nav bar
   nav_link_size: 14            # About / Areas / Journey / Awards links
-  areas_size: 11                # work lists beside the Venn diagram
+  areas_size: 12.5              # work lists beside the Venn diagram
   journey_size: 12.5              # timeline role / institution / year text
   awards_size: 13               # awards list rows
