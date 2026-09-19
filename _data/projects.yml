@@ -132,7 +132,7 @@
 - name: Digital Earth
   work: Digital Earth
   image: /assets/images/projects/earth.png
-  venue: IEEE SciVis Poster '15
+  venue: IEEE VIS Poster '15
   description: >-
     Hexagonal box-spline wavelets for rendering Earth data smoothly across
     zoom levels.
