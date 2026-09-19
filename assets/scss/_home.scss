@@ -643,6 +643,11 @@ $venn-width: 320px;
 
 .timeline-role {
   font-weight: 600;
+  // Longer titles such as "Assistant Professor (Teaching-Focused, CSE)"
+  // must stay inside their milestone column instead of colliding with the
+  // neighboring date. Shorter titles remain on one line naturally.
+  white-space: normal;
+  text-wrap: balance;
 }
 
 .timeline-dept {
