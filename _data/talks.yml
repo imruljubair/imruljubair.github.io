@@ -1,4 +1,14 @@
 - year: 2025
+  title: Demystifying AI Blackbox
+  venue: Artificial Intelligence in Clinical Practice Workshop, Kettering General Hospital
+  organization: University Hospitals of Northamptonshire NHS Group, UK
+  links:
+    - label: Materials
+      url: https://o365coloradoedu-my.sharepoint.com/:x:/g/personal/moju3572_colorado_edu/IQDDU3qzXfr2Sa3mwktdG3o7AUXLpZwFkMnXfc33zKWFnkw?e=LDlOZS
+    - label: Certificate
+      url: /assets/documents/clinical-practice-workshop-certificate.pdf
+
+- year: 2025
   title: AI by Hand Workshop Series
   venue: Virtual workshops co-hosted with Prof. Tom Yeh
   description: >-
@@ -10,16 +20,6 @@
       url: https://luma.com/666lnn3e
     - label: Materials
       url: https://github.com/imruljubair/Demystifying-Modern-AI-Papers
-
-- year: 2025
-  title: Demystifying AI Blackbox
-  venue: Artificial Intelligence in Clinical Practice Workshop, Kettering General Hospital
-  organization: University Hospitals of Northamptonshire NHS Group, UK
-  links:
-    - label: Materials
-      url: https://o365coloradoedu-my.sharepoint.com/:x:/g/personal/moju3572_colorado_edu/IQDDU3qzXfr2Sa3mwktdG3o7AUXLpZwFkMnXfc33zKWFnkw?e=LDlOZS
-    - label: Certificate
-      url: /assets/documents/clinical-practice-workshop-certificate.pdf
 
 - year: 2025
   title: State-of-the-Art Algorithms for Large Language Models

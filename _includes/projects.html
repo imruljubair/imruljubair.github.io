@@ -25,12 +25,20 @@
   <article class="project-card"{% if work_slugs != "" %} data-works="{{ work_slugs | strip }}"{% endif %}>
     <div class="project-thumb">
       {%- if project.image and project.image != "" -%}
-      <img src="{{ project.image | prepend: site.baseurl }}" alt="{{ project.name }}" loading="lazy">
+      <img{% if project.image_fit == "contain" %} class="project-image--contain"{% endif %} src="{{ project.image | prepend: site.baseurl }}" alt="{{ project.name }}" loading="lazy">
       {%- else -%}
       <img src="{{ '/assets/images/projects/placeholder.svg' | prepend: site.baseurl }}" alt="" loading="lazy">
       {%- endif -%}
-      {%- if project.venue and project.venue != "" -%}
-      <span class="project-venue">{{ project.venue }}</span>
+      {%- if project.venues or project.venue and project.venue != "" -%}
+      <div class="project-venues">
+        {%- if project.venues -%}
+          {%- for venue in project.venues -%}
+        <span class="project-venue">{{ venue }}</span>
+          {%- endfor -%}
+        {%- else -%}
+        <span class="project-venue">{{ project.venue }}</span>
+        {%- endif -%}
+      </div>
       {%- endif -%}
     </div>
     <div class="project-body">

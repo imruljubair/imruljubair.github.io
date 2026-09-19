@@ -53,7 +53,7 @@ colors:
     hci_ink: "#1d4ed8"        # HCI outline + area label (HCI has no list of
                                # its own — every HCI work overlaps AI or Viz)
     overlap_ink: "#0f766e"    # AI + HCI dot and list heading
-    current_focus_background: "#ece9f7" # soft tag behind "Current focus"
+    current_focus_background: "#ddd6f3" # distinct lavender tag behind "Current focus"
 
 section_titles:
   # The small "ABOUT" / "WORK" / "JOURNEY" / "AWARDS" label above each

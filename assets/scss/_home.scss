@@ -290,7 +290,7 @@ $venn-width: 320px;
   border: 1px solid $light-gray-color;
   border-radius: 0.5em;
   background: $base-background-color;
-  font-size: rem($areas-font-size);
+  font-size: rem($areas-font-size - 0.5);
   line-height: 1.5;
   color: $ink-color;
 }
@@ -314,10 +314,12 @@ $venn-width: 320px;
   display: inline-block;
   margin: -0.05em 0 0.35em;
   padding: 0.12em 0.5em;
+  border: 1px solid mix($venn-current-focus-background, $venn-overlap-ink, 60%);
   border-radius: 999px;
   background: $venn-current-focus-background;
-  color: #625b7f;
+  color: #40365f;
   font-size: 10.5px;
+  font-weight: 700;
   letter-spacing: 0.05em;
 }
 
@@ -354,10 +356,33 @@ $venn-width: 320px;
   }
 }
 
-.venn-node--ai     { grid-area: ai;     justify-self: end; }
-.venn-node--viz    { grid-area: viz;    justify-self: end; }
-.venn-node--ai-hci { grid-area: ai-hci; justify-self: start; }
-.venn-node--triple { grid-area: triple; justify-self: start; }
+.venn-node--ai {
+  grid-area: ai;
+  justify-self: end;
+  border-color: mix($venn-ai, $white-color, 42%);
+  background: mix($venn-ai, $white-color, 15%);
+}
+
+.venn-node--viz {
+  grid-area: viz;
+  justify-self: end;
+  border-color: mix($venn-viz, $white-color, 42%);
+  background: mix($venn-viz, $white-color, 15%);
+}
+
+.venn-node--ai-hci {
+  grid-area: ai-hci;
+  justify-self: start;
+  border-color: mix(mix($venn-ai, $venn-hci), $white-color, 42%);
+  background: mix(mix($venn-ai, $venn-hci), $white-color, 15%);
+}
+
+.venn-node--triple {
+  grid-area: triple;
+  justify-self: start;
+  border-color: mix($venn-current-focus-background, $venn-overlap-ink, 82%);
+  background: mix($venn-current-focus-background, $white-color, 62%);
+}
 
 // Narrow screens: the diagram sits above a compact 2x2 group layout. Connector
 // lines fan down from the diagram to each group, preserving the relationship
@@ -455,13 +480,27 @@ $venn-width: 320px;
     height: auto;
     object-fit: cover;
   }
+
+  .project-image--contain {
+    object-fit: contain;
+    background: $base-background-color;
+  }
 }
 
-.project-venue {
+.project-venues {
   position: absolute;
   right: 0.55em;
   bottom: 0.45em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25em;
   max-width: calc(100% - 1.3em);
+}
+
+.project-venue {
+  display: block;
+  max-width: 100%;
   padding: 0.14em 0.45em;
   overflow: hidden;
   border: 1px solid rgba($white-color, 0.16);

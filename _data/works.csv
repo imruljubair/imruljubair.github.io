@@ -1,12 +1,14 @@
 name,type,year,link
 byhand CLI,ai+viz+hci,2026,https://imruljubair.github.io/byhand/
-The Architect,ai+viz+hci,2025,https://github.com/imruljubair/The-Architect
+The Architect,ai+viz+hci,2026,https://github.com/imruljubair/The-Architect
 MLP Notebook,ai+viz+hci,2024,https://github.com/imruljubair/A-DSL-for-Mathematical-Exploration
 HVSMR-2.0,ai,2024,https://www.nature.com/articles/s41597-024-03469-9
 BdSL36,ai,2020,https://openaccess.thecvf.com/content/ACCV2020W/MLCSA/html/Hoque_BdSL36_A_Dataset_for_Bangladeshi_Sign_Letters_Recognition_ACCVW_2020_paper.html
 toon2real,ai,2020,https://ieeexplore.ieee.org/document/9288181
 PerSign,ai+hci,2022,https://dl.acm.org/doi/10.1145/3526114.3558712
 DIY Graphics Tab,ai+hci,2022,https://dl.acm.org/doi/10.1145/3526114.3558718
-Text-to-Expression,ai+hci,2021,https://arxiv.org/pdf/2112.01454
+Book Cover Synthesis,ai,2022,https://doi.org/10.1109/AICCSA56895.2022.10017541
+Shapes2Toon,ai+hci,2022,https://doi.org/10.1109/AICCSA56895.2022.10017484
+Text-to-Expression,ai+hci,2022,https://arxiv.org/pdf/2112.01454
 Icosahedral Maps,viz,2016,https://dl.acm.org/citation.cfm?id=3056928
 Digital Earth,viz,2015,https://ieeexplore.ieee.org/abstract/document/7429508/

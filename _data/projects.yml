@@ -90,13 +90,34 @@
 - name: DIY Graphics Tab
   work: DIY Graphics Tab
   image: /assets/images/projects/diy.jpg
-  venue: AAAI Workshop '22
+  venues:
+    - AAAI Workshop '22
+    - UIST Adjunct '22
   description: >-
     A low-cost stand-in for a graphics tablet: a webcam tracks a pen moving on
     ordinary paper.
   links:
     paper: https://dl.acm.org/doi/10.1145/3526114.3558718
     video: https://youtu.be/rkcHIDOOoKQ?si=VZR7FmBb3GDwbelE
+
+- name: Book Cover Synthesis
+  work: Book Cover Synthesis
+  image: /assets/images/projects/book-cover-synthesis.png
+  venue: IEEE AICCSA '22
+  description: >-
+    Generates candidate book covers from summaries using text-to-image models and a curated dataset.
+  links:
+    paper: https://doi.org/10.1109/AICCSA56895.2022.10017541
+
+- name: Shapes2Toon
+  work: Shapes2Toon
+  image: /assets/images/projects/shapes2toon.png
+  image_fit: contain
+  venue: IEEE AICCSA '22
+  description: >-
+    Turns simple geometric sketches into cartoon characters with a GAN and an interactive web tool.
+  links:
+    paper: https://doi.org/10.1109/AICCSA56895.2022.10017484
 
 - name: Icosahedral Maps
   work: Icosahedral Maps
