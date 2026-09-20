@@ -16,9 +16,10 @@
 #                into a single paragraph. Accepts **bold** / [links](url).
 #                Keep under ~93 characters so it fits three lines on a card
 #                and every card in a row stays the same height.
-#   links        All four are optional — omit or leave blank to hide the icon.
+#   links        All five are optional — omit or leave blank to hide the icon.
 #                  code    → GitHub / repository
 #                  paper   → paper, PDF, or publication page
+#                  poster  → presentation poster PDF
 #                  video   → YouTube or any video demo
 #                  site    → project website or live demo
 # ---------------------------------------------------------------------------
@@ -85,6 +86,7 @@
     clothing intact.
   links:
     paper: https://dl.acm.org/doi/fullHtml/10.1145/3526114.3558712
+    poster: /assets/documents/posters/PerSign.pdf
     video: https://youtu.be/X4VGgdEiFAI?si=wchVcM-X_9tQejLy
 
 - name: DIY Graphics Tab
@@ -98,6 +100,7 @@
     ordinary paper.
   links:
     paper: https://dl.acm.org/doi/10.1145/3526114.3558718
+    poster: /assets/documents/posters/DIY.pdf
     video: https://youtu.be/rkcHIDOOoKQ?si=VZR7FmBb3GDwbelE
 
 - name: Book Cover Synthesis
@@ -128,6 +131,7 @@
     visualize at multiple levels of detail.
   links:
     paper: https://dl.acm.org/doi/10.5555/3056901.3056928
+    poster: /assets/documents/posters/VMV.pdf
 
 - name: Digital Earth
   work: Digital Earth
@@ -138,6 +142,7 @@
     zoom levels.
   links:
     paper: https://ieeexplore.ieee.org/document/7429508/
+    poster: /assets/documents/posters/VIS.pdf
 
 - name: toon2real
   work: toon2real

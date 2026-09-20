@@ -3,8 +3,8 @@
   `link_order` fixes the icon order so it stays consistent across cards
   regardless of the order the keys happen to appear in the YAML.
 {%- endcomment -%}
-{%- assign link_order = "code,paper,video,site" | split: "," -%}
-{%- assign link_labels = "Code,Paper,Video,Website" | split: "," -%}
+{%- assign link_order = "code,paper,poster,video,site" | split: "," -%}
+{%- assign link_labels = "Code,Paper,Poster,Video,Website" | split: "," -%}
 
 {%- if site.data.projects and site.data.projects.size > 0 -%}
 <div class="project-grid">
