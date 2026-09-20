@@ -360,28 +360,30 @@ $venn-width: 320px;
   grid-area: ai;
   justify-self: end;
   border-color: mix($venn-ai, $white-color, 42%);
-  background: mix($venn-ai, $white-color, 15%);
+  // Keep the existing tint's RGB values while allowing connector lines to
+  // remain faintly visible beneath the card.
+  background: rgba(mix($venn-ai, $white-color, 15%), 0.88);
 }
 
 .venn-node--viz {
   grid-area: viz;
   justify-self: end;
   border-color: mix($venn-viz, $white-color, 42%);
-  background: mix($venn-viz, $white-color, 15%);
+  background: rgba(mix($venn-viz, $white-color, 15%), 0.88);
 }
 
 .venn-node--ai-hci {
   grid-area: ai-hci;
   justify-self: start;
   border-color: mix(mix($venn-ai, $venn-hci), $white-color, 42%);
-  background: mix(mix($venn-ai, $venn-hci), $white-color, 15%);
+  background: rgba(mix(mix($venn-ai, $venn-hci), $white-color, 15%), 0.88);
 }
 
 .venn-node--triple {
   grid-area: triple;
   justify-self: start;
   border-color: mix($venn-current-focus-background, $venn-overlap-ink, 82%);
-  background: mix($venn-current-focus-background, $white-color, 62%);
+  background: rgba(mix($venn-current-focus-background, $white-color, 62%), 0.88);
 }
 
 // Narrow screens: the diagram sits above a compact 2x2 group layout. Connector
