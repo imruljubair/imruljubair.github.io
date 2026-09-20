@@ -16,10 +16,11 @@
 #                into a single paragraph. Accepts **bold** / [links](url).
 #                Keep under ~93 characters so it fits three lines on a card
 #                and every card in a row stays the same height.
-#   links        All five are optional — omit or leave blank to hide the icon.
+#   links        All six are optional — omit or leave blank to hide the icon.
 #                  code    → GitHub / repository
 #                  paper   → paper, PDF, or publication page
 #                  poster  → presentation poster PDF
+#                  article → featured article or blog post
 #                  video   → YouTube or any video demo
 #                  site    → project website or live demo
 # ---------------------------------------------------------------------------
@@ -43,8 +44,9 @@
     visible in plain cells.
   links:
     code: https://github.com/imruljubair/The-Architect
-    video: https://youtu.be/HzAudh_PK8I?si=bdTV719cfS_8XoYx
     paper: https://arxiv.org/pdf/2608.13572
+    article: https://www.byhand.ai/p/the-architect-new-open-source-tool
+    video: https://youtu.be/HzAudh_PK8I?si=bdTV719cfS_8XoYx
 
 - name: MLP Notebook
   work: MLP Notebook
