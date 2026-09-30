@@ -1,0 +1,31 @@
+{% assign event_count = 0 %}
+{% assign registration_count = 0 %}
+{% for topic in site.data.workshops %}
+  {% assign event_count = event_count | plus: topic.events.size %}
+  {% for event in topic.events %}
+    {% assign registration_count = registration_count | plus: event.registrations %}
+  {% endfor %}
+{% endfor %}
+<div class="workshop-archive">
+  <p class="workshop-impact"><strong>{{ event_count }} events</strong> · {{ site.data.workshops.size }} topics &amp; formats · <strong>{{ registration_count | divided_by: 100 | divided_by: 10.0 }}K+ registrations</strong></p>
+  <details class="workshop-explore">
+    <summary>Explore workshop topics</summary>
+    <p class="workshop-host">AI by Hand · Online</p>
+    <div class="workshop-grid">
+      {% for topic in site.data.workshops %}
+      {% assign topic_registrations = 0 %}
+      {% for event in topic.events %}
+        {% assign topic_registrations = topic_registrations | plus: event.registrations %}
+      {% endfor %}
+      <article class="workshop-card">
+        <h4>{{ topic.title }}</h4>
+        <p class="workshop-context">{{ topic.context }}{% if topic.venue %} · {{ topic.venue }}{% endif %}</p>
+        <p class="workshop-meta">{{ topic.period }}</p>
+        <p class="workshop-meta">{{ topic.events.size }} {% if topic.events.size == 1 %}event{% else %}events{% endif %} · {{ topic_registrations }} registrations</p>
+        {% if topic.materials %}<a class="workshop-resource" href="{{ topic.materials }}" target="_blank" rel="noopener">{{ topic.materials_label | default: "GitHub worksheet" }} <span aria-hidden="true">↗</span><span class="workshop-sr-only"> for {{ topic.title }}</span></a>{% endif %}
+        {% if topic.resource_url %}<a class="workshop-resource" href="{{ topic.resource_url }}" target="_blank" rel="noopener">{{ topic.resource_label }} <span aria-hidden="true">↗</span></a>{% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </details>
+</div>

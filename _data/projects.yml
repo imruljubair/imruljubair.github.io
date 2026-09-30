@@ -16,6 +16,8 @@
 #                into a single paragraph. Accepts **bold** / [links](url).
 #                Keep under ~93 characters so it fits three lines on a card
 #                and every card in a row stays the same height.
+#   primary_resource  Optional key from links for the card title destination.
+#                Defaults to site, paper, code, article, video, then poster.
 #   links        All six are optional — omit or leave blank to hide the icon.
 #                  code    → GitHub / repository
 #                  paper   → paper, PDF, or publication page
@@ -36,6 +38,7 @@
     video: https://youtu.be/6VitPJzfYKs?si=WzMj6fYr1jXrl7ov
 
 - name: The Architect
+  primary_resource: code
   work: The Architect
   image: /assets/images/projects/architect.png
   venue: Technical Report '26

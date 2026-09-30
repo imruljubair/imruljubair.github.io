@@ -3,8 +3,8 @@
     <p class="section-kicker"><span>Talks &amp; Workshops</span></p>
     <ol class="talk-list">
       {%- for talk in site.data.talks -%}
-      <li class="talk-item">
-        <time class="talk-year" datetime="{{ talk.year }}">{{ talk.year }}</time>
+      <li class="talk-item{% if talk.workshop_archive %} talk-item-workshops{% endif %}">
+        {% if talk.workshop_archive %}<span class="talk-year">{{ talk.year }}</span>{% else %}<time class="talk-year" datetime="{{ talk.year }}">{{ talk.year }}</time>{% endif %}
         <div class="talk-details">
           <h3 class="talk-title">{{ talk.title }}</h3>
           <p class="talk-venue">
@@ -23,6 +23,7 @@
             {%- endfor -%}
           </p>
           {%- endif -%}
+          {% if talk.workshop_archive %}{% include workshops.html %}{% endif %}
         </div>
       </li>
       {%- endfor -%}

@@ -8,18 +8,14 @@
     - label: Certificate
       url: /assets/documents/clinical-practice-workshop-certificate.pdf
 
-- year: 2025
-  title: AI by Hand Workshop Series
+- year: "2025–2026"
+  title: AI by Hand — Workshops & Paper Clubs
+  workshop_archive: true
   venue: Virtual workshops co-hosted with Prof. Tom Yeh
   description: >-
-    Interactive workshops that unpack recently published AI models through
-    step-by-step matrix and numerical exercises.
-  topics: NdLinear, XAttention, spiking self-attention, DFormerv2, and TokenFormer
-  links:
-    - label: Event
-      url: https://luma.com/666lnn3e
-    - label: Materials
-      url: https://github.com/imruljubair/Demystifying-Modern-AI-Papers
+    Independently decomposed modern AI research into step-by-step matrix
+    visualizations and numerical exercises, then led hands-on workshops using
+    the materials I created.
 
 - year: 2025
   title: State-of-the-Art Algorithms for Large Language Models

@@ -459,6 +459,7 @@ $venn-width: 320px;
 
   // Set when a work in the diagram is clicked; clears on Escape or a
   // second click on the same work.
+  &:focus-within,
   &.is-focused {
     border-color: $accent-color;
     box-shadow: 0 0 0 3px rgba($accent-color, 0.18);
@@ -530,6 +531,21 @@ $venn-width: 320px;
   font-weight: 700;
   line-height: 1.3;
   color: $ink-color;
+}
+
+// The title links to the primary resource; resource icons stay independent.
+.project-primary-link {
+  color: inherit;
+
+  &:hover {
+    color: $accent-color;
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $accent-color;
+    outline-offset: 3px;
+  }
 }
 
 .project-desc {
@@ -806,7 +822,7 @@ $venn-width: 320px;
 
 .talk-item {
   display: grid;
-  grid-template-columns: 4.5em minmax(0, 1fr);
+  grid-template-columns: 6em minmax(0, 1fr);
   gap: 1em;
   padding: 0.65em 0;
 }
@@ -947,4 +963,42 @@ $venn-width: 320px;
     justify-content: center;
     text-align: center;
   }
+}
+
+// Workshop archive: compact impact first, event evidence on demand.
+.workshop-archive {
+  margin-top: 0.7em;
+  font-size: rem(13);
+  line-height: 1.5;
+  color: $dark-gray-color;
+
+  .workshop-impact { margin: 0; color: $ink-color; }
+  .workshop-host { margin: 0.15em 0 0; font-size: rem(12); }
+  summary { cursor: pointer; color: $ink-color; font-weight: 600; padding: 0.4em 0; }
+  summary:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+  a { @extend .link; }
+}
+.workshop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6em;
+  align-items: stretch;
+  margin: 0.45em 0;
+}
+.workshop-card {
+  border: 1px solid rgba($ink-color, 0.15);
+  border-radius: 6px;
+  padding: 0.7em 0.85em;
+  min-width: 0;
+  line-height: 1.35;
+  h4 { font-size: rem(14); line-height: 1.35; margin: 0 0 0.2em; color: $ink-color; }
+  p { margin: 0.15em 0; }
+  .workshop-context, .workshop-meta { font-size: rem(12); }
+  .workshop-meta { margin-top: 0.2em; }
+  .workshop-resource { display: inline-block; margin: 0.3em 0.6em 0 0; font-size: rem(12); }
+}
+.workshop-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+@media (max-width: 640px) {
+  .workshop-grid { grid-template-columns: minmax(0, 1fr); }
+  .talk-item { grid-template-columns: minmax(0, 1fr); gap: 0.3em; }
 }

@@ -14,6 +14,10 @@
     regardless of capitalisation, spaces, or punctuation ("HVSMR-2.0" both
     sides becomes "hvsmr-2-0").
   {%- endcomment -%}
+  {%- assign primary_url = project.links[project.primary_resource] -%}
+  {%- if primary_url == nil or primary_url == "" -%}
+    {%- assign primary_url = project.links.site | default: project.links.paper | default: project.links.code | default: project.links.article | default: project.links.video | default: project.links.poster -%}
+  {%- endif -%}
   {%- assign work_slugs = "" -%}
   {%- if project.work and project.work != "" -%}
     {%- assign work_list = project.work | split: "," -%}
@@ -42,7 +46,13 @@
       {%- endif -%}
     </div>
     <div class="project-body">
-      <h3 class="project-name">{{ project.name }}</h3>
+      <h3 class="project-name">
+        {%- if primary_url and primary_url != "" -%}
+        <a class="project-primary-link" href="{{ primary_url | escape }}" target="_blank" rel="noopener">{{ project.name }}</a>
+        {%- else -%}
+        {{ project.name }}
+        {%- endif -%}
+      </h3>
       {%- if project.description and project.description != "" -%}
       <p class="project-desc">{{ project.description | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
       {%- endif -%}
