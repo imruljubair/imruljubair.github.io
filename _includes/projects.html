@@ -176,19 +176,50 @@
      height depends on how many works are listed, and because browser zoom
      shrinks the effective viewport. */
   var section = document.querySelector('.venn-section');
+  var pinStart = Infinity;
+
+  function updateCondensedVenn() {
+    var shouldCondense = section && section.classList.contains('can-pin') &&
+                         window.pageYOffset >= pinStart;
+    scope.classList.toggle('is-condensed', shouldCondense);
+  }
+
   function updatePinning() {
     if (!section) return;
+    /* Measure the full-size diagram in normal flow. This keeps the decision
+       stable even if a resize occurs while the compact version is pinned. */
+    section.classList.remove('can-pin');
+    scope.classList.remove('is-condensed');
+    scope.style.top = '';
+
     var header = document.querySelector('.site-header');
     var headerH = header ? header.getBoundingClientRect().height : 0;
     var gap = 16;
+    var naturalTop = window.pageYOffset + scope.getBoundingClientRect().top;
     var needed = headerH + scope.getBoundingClientRect().height + gap +
                  cards[0].getBoundingClientRect().height;
     var fits = window.innerWidth >= 841 && window.innerHeight >= needed;
     section.classList.toggle('can-pin', fits);
-    if (fits) scope.style.top = headerH + 'px';
+    if (fits) {
+      scope.style.top = headerH + 'px';
+      pinStart = naturalTop - headerH;
+    } else {
+      pinStart = Infinity;
+    }
+    updateCondensedVenn();
   }
   updatePinning();
   window.addEventListener('load', updatePinning);
+
+  var scrollFrame;
+  window.addEventListener('scroll', function () {
+    if (scrollFrame) return;
+    scrollFrame = requestAnimationFrame(function () {
+      scrollFrame = null;
+      updateCondensedVenn();
+    });
+  }, { passive: true });
+
   var resizeTimer;
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);

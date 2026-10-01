@@ -473,6 +473,35 @@ $venn-width: 320px;
   padding-bottom: 0.75em;
 }
 
+// Once the Venn reaches the sticky navigation, reduce its footprint so the
+// project cards remain visible beneath it. Its normal, introductory state
+// stays full-size; only the pinned state is condensed.
+.venn-section.can-pin .venn-scroll.is-condensed {
+  padding-bottom: 0.35em;
+
+  .venn-layout {
+    grid-template-columns: minmax(0, 1fr) 255px minmax(0, 1fr);
+    gap: 0.55em 1.5em;
+  }
+
+  .venn-node {
+    padding: 0.45em 0.65em;
+    font-size: rem($areas-font-size - 1);
+    line-height: 1.35;
+  }
+
+  .venn-node--ai,
+  .venn-node--viz,
+  .venn-node--ai-hci {
+    font-size: rem($areas-font-size - 2);
+  }
+
+  .venn-node--triple .venn-node-title {
+    margin-bottom: 0.25em;
+    font-size: 9.5px;
+  }
+}
+
 // Project cards -----------------------------------------------------------
 .selected-work-title {
   margin-top: 3em;
@@ -919,6 +948,93 @@ $venn-width: 320px;
   }
 }
 
+// Teaching -------------------------------------------------------------
+.teaching-section {
+  padding: $section-gap 0;
+  font-family: $awards-font-family;
+}
+
+.teaching-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 1.5em;
+  margin-bottom: 1.5em;
+
+  p {
+    margin: 0;
+    max-width: 48em;
+    font-size: rem($awards-font-size);
+    line-height: 1.55;
+    color: $dark-gray-color;
+  }
+
+  a {
+    @extend .link;
+  }
+}
+
+.teaching-evidence {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55em;
+  white-space: nowrap;
+
+  strong {
+    color: $ink-color;
+  }
+
+  span {
+    color: $light-gray-color;
+  }
+}
+
+.teaching-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25em 2em;
+}
+
+.teaching-course {
+  padding-top: 1em;
+  border-top: 1px solid $light-gray-color;
+
+  h3 {
+    margin: 0 0 0.35em;
+    font-size: rem($awards-font-size);
+    font-weight: 600;
+    color: $ink-color;
+  }
+
+  p {
+    margin: 0 0 0.55em;
+    font-size: rem(12);
+    line-height: 1.55;
+    color: $dark-gray-color;
+  }
+
+  a {
+    @extend .link;
+    font-size: rem(13);
+    font-weight: 600;
+  }
+
+  .teaching-course-code {
+    margin-bottom: 0.2em;
+    font-size: rem(11.5);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: $medium-gray-color;
+  }
+}
+
+.teaching-more {
+  margin: 1.25em 0 0;
+  font-size: rem(13);
+  line-height: 1.5;
+  color: $medium-gray-color;
+}
+
 .awards-section {
   padding: $section-gap 0;
   font-family: $awards-font-family;
@@ -975,6 +1091,15 @@ $venn-width: 320px;
 
 @media (max-width: 700px) {
   .work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .teaching-intro {
+    grid-template-columns: 1fr;
+    gap: 0.6em;
+  }
+
+  .teaching-grid {
     grid-template-columns: 1fr;
   }
 }
