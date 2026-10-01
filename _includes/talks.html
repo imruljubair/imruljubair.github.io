@@ -25,7 +25,7 @@
           {%- if talk.links and talk.links.size > 0 -%}
           <p class="talk-links">
             {%- for link in talk.links -%}
-            <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>{% unless forloop.last %}<span aria-hidden="true">&middot;</span>{% endunless %}
+            <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }} <span aria-hidden="true">↗</span></a>{% unless forloop.last %}<span aria-hidden="true">&middot;</span>{% endunless %}
             {%- endfor -%}
           </p>
           {%- endif -%}
