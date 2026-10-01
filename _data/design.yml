@@ -80,7 +80,7 @@ cards:
 
 sections:
   # Base text size for each section's main content.
-  hero_name_size: 20           # "My name is ..." line
+  hero_name_size: 18           # "My name is ..." line
   hero_body_size: 16           # bio paragraphs
   hero_email_size: 13
   nav_brand_size: 16           # your name in the top-left of the nav bar
