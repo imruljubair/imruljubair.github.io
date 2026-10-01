@@ -1062,6 +1062,50 @@ $venn-width: 320px;
   font-variant-numeric: tabular-nums;
 }
 
+// Opportunities ----------------------------------------------------------
+.opportunity-section {
+  padding: 0 0 $section-gap;
+  font-family: $awards-font-family;
+}
+
+.opportunity-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5em;
+  padding: 1.25em 1.4em;
+  border: 1px solid $light-gray-color;
+  border-radius: $base-border-radius;
+  background: $secondary-background-color;
+
+  h2 {
+    margin: 0 0 0.25em;
+    font-size: rem(17);
+    font-weight: 600;
+    color: $ink-color;
+  }
+
+  p {
+    margin: 0;
+    font-size: rem(14);
+    line-height: 1.5;
+    color: $dark-gray-color;
+  }
+
+  .opportunity-meta {
+    margin-top: 0.25em;
+    font-size: rem(12);
+    color: $medium-gray-color;
+  }
+
+  a {
+    @extend .link;
+    white-space: nowrap;
+    font-size: rem(14);
+    font-weight: 600;
+  }
+}
+
 // Footer -----------------------------------------------------------------
 .site-footer {
   border-top: 1px solid $light-gray-color;
@@ -1101,6 +1145,11 @@ $venn-width: 320px;
 
   .teaching-grid {
     grid-template-columns: 1fr;
+  }
+
+  .opportunity-card {
+    grid-template-columns: 1fr;
+    gap: 0.75em;
   }
 }
 
