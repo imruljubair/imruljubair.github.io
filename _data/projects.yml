@@ -35,7 +35,7 @@
     Makes language-model internals visible in terminal, HTML, and Excel,
     using supported GGUF models from Ollama, local files, or URLs.
   links:
-    code: https://imruljubair.github.io/byhand/
+    site: https://imruljubair.github.io/byhand/
     video: https://youtu.be/6VitPJzfYKs?si=WzMj6fYr1jXrl7ov
 
 - name: The Architect

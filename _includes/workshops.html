@@ -22,7 +22,7 @@
         <p class="workshop-context">{{ topic.context }}{% if topic.venue %} · {{ topic.venue }}{% endif %}</p>
         <p class="workshop-meta">{{ topic.period }}</p>
         <p class="workshop-meta">{{ topic.events.size }} {% if topic.events.size == 1 %}event{% else %}events{% endif %} · {{ topic_registrations }} registrations</p>
-        {% if topic.materials %}<a class="workshop-resource" href="{{ topic.materials }}" target="_blank" rel="noopener">{{ topic.materials_label | default: "GitHub worksheet" }} <span aria-hidden="true">↗</span><span class="workshop-sr-only"> for {{ topic.title }}</span></a>{% endif %}
+        {% if topic.materials %}<a class="workshop-resource" href="{{ topic.materials }}" target="_blank" rel="noopener">{{ topic.materials_label | default: "Worksheets" }} <span aria-hidden="true">↗</span><span class="workshop-sr-only"> for {{ topic.title }}</span></a>{% endif %}
         {% if topic.resource_url %}<a class="workshop-resource" href="{{ topic.resource_url }}" target="_blank" rel="noopener">{{ topic.resource_label }} <span aria-hidden="true">↗</span></a>{% endif %}
       </article>
       {% endfor %}

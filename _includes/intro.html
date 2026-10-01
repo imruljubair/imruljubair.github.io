@@ -1,6 +1,5 @@
 <section class="hero" id="about">
   <div class="container">
-    <p class="section-kicker"><span>About</span></p>
     <div class="hero-grid">
       <div class="hero-photo">
         <img src="{{ '/assets/images/mypic-bg.png' | prepend: site.baseurl }}" alt="Portrait of Mohammad Imrul Jubair">
@@ -22,17 +21,17 @@
       {%- if site.data.bio.email and site.data.bio.email != "" -%}
       <span class="hero-email">{{ site.data.bio.email }}</span>
       {%- endif -%}
-      <a href="{{ '/cv/Jubair-CV-2026-September-Updated.pdf' | prepend: site.baseurl }}" target="_blank" rel="noopener">CV</a>
+      <a class="hero-work-link" href="#byhand-cli">View selected work</a>
       <a href="http://scholar.google.com/citations?user=H4-yZ3wAAAAJ&amp;hl=en">Google Scholar</a>
-      <a href="https://github.com/imruljubair">GitHub</a>
-      <a href="https://www.linkedin.com/in/imruljubair">LinkedIn</a>
+      <a class="hero-social-link" href="https://github.com/imruljubair" aria-label="GitHub" title="GitHub">{% include icon.html type="code" %}</a>
+      <a class="hero-social-link" href="https://www.linkedin.com/in/imruljubair" aria-label="LinkedIn" title="LinkedIn">{% include icon.html type="linkedin" %}</a>
     </div>
   </div>
 </section>
 
 <section class="venn-section" id="work">
   <div class="container">
-    <p class="section-kicker"><span>Work</span></p>
+    <p class="section-kicker"><span>Research Areas</span></p>
     <div class="venn-scroll">
       {% include venn-diagram.html %}
     </div>

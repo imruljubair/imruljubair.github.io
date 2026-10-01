@@ -104,7 +104,7 @@ section[id] {
 
   p {
     margin: 0 0 0.7em;
-    font-size: rem($hero-body-font-size);
+    font-size: rem(15);
     color: $dark-gray-color;
   }
 
@@ -115,6 +115,17 @@ section[id] {
   a {
     @extend .link;
   }
+
+  .bio-area {
+    padding: 0.08em 0.32em;
+    border-radius: 0.25em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .bio-area--ai  { background: mix($venn-ai, $white-color, 35%); color: $venn-ai-ink; }
+  .bio-area--viz { background: mix($venn-viz, $white-color, 35%); color: $venn-viz-ink; }
+  .bio-area--hci { background: mix($venn-hci, $white-color, 55%); color: $venn-hci-ink; }
 }
 
 // Sits inline at the start of .hero-links; plain text, not a link.
@@ -126,6 +137,7 @@ section[id] {
 // Links sitting under the bio (no section title, no divider).
 .hero-links {
   display: flex;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.5em 1.8em;
@@ -138,6 +150,27 @@ section[id] {
 
     &:hover {
       color: $accent-color;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $accent-color;
+      outline-offset: 4px;
+    }
+  }
+
+  .hero-work-link {
+    color: $accent-color;
+    font-weight: 600;
+  }
+
+  .hero-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      width: 18px;
+      height: 18px;
     }
   }
 }
@@ -295,6 +328,13 @@ $venn-width: 320px;
   color: $ink-color;
 }
 
+.venn-node--ai,
+.venn-node--viz,
+.venn-node--ai-hci {
+  font-size: rem($areas-font-size - 1.5);
+  color: $medium-gray-color;
+}
+
 // Names the region and carries its colour. Colour alone cannot distinguish an
 // overlap ("AI + HCI") from a plain region and would be lost on colourblind
 // readers, so the wording does the work and the colour reinforces it.
@@ -434,11 +474,16 @@ $venn-width: 320px;
 }
 
 // Project cards -----------------------------------------------------------
+.selected-work-title {
+  margin-top: 3em;
+  scroll-margin-top: 6em;
+}
+
 .project-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.6em 1.4em;
-  margin-top: 3em;
+  margin-top: 0;
 }
 
 .project-card {
@@ -941,6 +986,17 @@ $venn-width: 320px;
 }
 
 @media (max-width: 560px) {
+  .nav-inner {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.45em;
+  }
+
+  .nav-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   .hero-grid {
     grid-template-columns: 1fr;
     text-align: center;

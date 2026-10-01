@@ -27,4 +27,8 @@
 
 - year: 2016
   title: Multiresolution Visualization of ICON Data
-  venue: German Climate Computing Center (DKRZ)
+  venue: German Climate Computing Center (DKRZ), Hamburg, Germany
+  description: >-
+    Invited by DKRZ to present my MSc research to climatologists and visualization
+    researchers. I introduced multiresolution methods for exploring ICON climate
+    data across scales using icosahedral maps and hexagonal box-spline wavelets.

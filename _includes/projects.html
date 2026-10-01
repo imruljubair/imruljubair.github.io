@@ -7,7 +7,8 @@
 {%- assign link_labels = "Code,Paper,Poster,Featured Article,Video,Website" | split: "," -%}
 
 {%- if site.data.projects and site.data.projects.size > 0 -%}
-<div class="project-grid">
+<h2 class="section-kicker selected-work-title" id="selected-work"><span>Selected works</span></h2>
+<div class="project-grid" aria-labelledby="selected-work">
   {%- for project in site.data.projects -%}
   {%- comment -%}
     Slugify each name in `work` so the card and the Venn label agree on a key
@@ -26,7 +27,7 @@
       {%- assign work_slugs = work_slugs | append: slug | append: " " -%}
     {%- endfor -%}
   {%- endif -%}
-  <article class="project-card"{% if work_slugs != "" %} data-works="{{ work_slugs | strip }}"{% endif %}>
+  <article class="project-card"{% if forloop.first %} id="byhand-cli"{% endif %}{% if work_slugs != "" %} data-works="{{ work_slugs | strip }}"{% endif %}>
     <div class="project-thumb">
       {%- if project.image and project.image != "" -%}
       <img{% if project.image_fit == "contain" %} class="project-image--contain"{% endif %} src="{{ project.image | prepend: site.baseurl }}" alt="{{ project.name }}" loading="lazy">
@@ -125,6 +126,18 @@
     }
     var top = window.pageYOffset + card.getBoundingClientRect().top - offset;
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
+  /* The hero link needs the same offset as diagram clicks when the diagram
+     is pinned; a plain fragment jump can leave the first card behind it. */
+  var selectedWorkLink = document.querySelector('.hero-links a[href="#byhand-cli"]');
+  if (selectedWorkLink) {
+    selectedWorkLink.addEventListener('click', function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      history.pushState(null, '', '#byhand-cli');
+      scrollToCard(cards[0]);
+    });
   }
 
   cards.forEach(function (card) {

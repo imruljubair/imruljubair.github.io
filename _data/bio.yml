@@ -7,17 +7,18 @@
 # so you can wrap lines however you like without it showing up on the page.
 
 # The opening line, shown larger than the rest.
-heading: My name is Jubair.
+heading: I'm Jubair. I build tools that make AI models understandable.
 
 # Body paragraphs. Add, remove, or reorder — they render in this order.
 paragraphs:
   - >-
-    I am a Computer Science PhD Student at the
+    I’m a Computer Science PhD student at the
     [University of Colorado Boulder](https://www.colorado.edu/cs/), advised by [Prof. Tom Yeh](https://www.colorado.edu/cs/tom-yeh).
-    Previously, I completed my MSc in Computer Science at the [University of Calgary](https://www.ucalgary.ca/),
+    My work combines <span class="bio-area bio-area--ai">AI</span>,
+    <span class="bio-area bio-area--viz">visualization</span>, and
+    <span class="bio-area bio-area--hci">HCI</span> to build tools that make AI models easier to see, understand, and use.
+    Before my PhD, I earned an MSc in Computer Science at the [University of Calgary](https://www.ucalgary.ca/),
     where I worked in the Visualization and Graphics Group.
-  - >-
-    My research lies at the intersection of AI, Visualization, and HCI. I build tools that make AI easier for people to see, understand, and use.
 
 # Shown as plain text at the start of the links row. Leave blank to hide it.
 email: mohammad.jubair@colorado.edu
