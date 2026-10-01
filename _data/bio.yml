@@ -12,8 +12,8 @@ heading: I'm Jubair. I build tools that make AI models understandable.
 # Body paragraphs. Add, remove, or reorder — they render in this order.
 paragraphs:
   - >-
-    I’m a Computer Science PhD student at the
-    [University of Colorado Boulder](https://www.colorado.edu/cs/), advised by [Prof. Tom Yeh](https://www.byhand.ai/).
+    Currently pursuing a PhD in Computer Science at the
+    [University of Colorado Boulder](https://www.colorado.edu/cs/), I am advised by [Prof. Tom Yeh](https://www.byhand.ai/).
     My work combines <span class="bio-area bio-area--ai">AI</span>,
     <span class="bio-area bio-area--viz">visualization</span>, and
     <span class="bio-area bio-area--hci">HCI</span> to build tools that make AI models easier to see, understand, and use.
