@@ -1,7 +1,15 @@
 - year: 2025
-  title: Demystifying AI Blackbox
+  title: Demystifying the Black Box
   venue: Artificial Intelligence in Clinical Practice Workshop, Kettering General Hospital
   organization: University Hospitals of Northamptonshire NHS Group, UK
+  description: >-
+    Led a hands-on session for clinicians, using matrix visualizations and numerical
+    exercises to explain how neural networks process medical images, make predictions,
+    and learn through backpropagation.
+  testimonial:
+    quote: "With such clarity that even the most complex ideas felt intuitive."
+    author: Achéśé Inimgba
+    role: Workshop Co-host · Anaesthetist & Critical Care Doctor
   links:
     - label: Materials
       url: https://o365coloradoedu-my.sharepoint.com/:x:/g/personal/moju3572_colorado_edu/IQDDU3qzXfr2Sa3mwktdG3o7AUXLpZwFkMnXfc33zKWFnkw?e=LDlOZS
@@ -16,11 +24,6 @@
     Independently decomposed modern AI research into step-by-step matrix
     visualizations and numerical exercises, then led hands-on workshops using
     the materials I created.
-
-- year: 2025
-  title: State-of-the-Art Algorithms for Large Language Models
-  venue: Computer Vision course
-  organization: University of Colorado Boulder
 
 - year: 2016
   title: Multiresolution Visualization of ICON Data

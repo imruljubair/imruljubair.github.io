@@ -30,9 +30,10 @@
 - name: byhand CLI
   work: byhand CLI
   image: /assets/images/projects/tinyllama-attention.png
+  venue: Software Release '26
   description: >-
-    Visualizes Llama GGUF models from Ollama, files, or URLs in terminal,
-    HTML, and Excel.
+    Makes language-model internals visible in terminal, HTML, and Excel,
+    using supported GGUF models from Ollama, local files, or URLs.
   links:
     code: https://imruljubair.github.io/byhand/
     video: https://youtu.be/6VitPJzfYKs?si=WzMj6fYr1jXrl7ov

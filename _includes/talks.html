@@ -13,6 +13,12 @@
           {%- if talk.description and talk.description != "" -%}
           <p class="talk-description">{{ talk.description }}</p>
           {%- endif -%}
+          {% if talk.testimonial %}
+          <blockquote class="talk-testimonial">
+            <p>“{{ talk.testimonial.quote | escape }}”</p>
+            <footer>— {{ talk.testimonial.author | escape }}, {{ talk.testimonial.role | escape }}</footer>
+          </blockquote>
+          {% endif %}
           {%- if talk.topics and talk.topics != "" -%}
           <p class="talk-topics"><strong>Topics:</strong> {{ talk.topics }}</p>
           {%- endif -%}

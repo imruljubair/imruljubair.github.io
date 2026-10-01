@@ -1002,3 +1002,17 @@ $venn-width: 320px;
   .workshop-grid { grid-template-columns: minmax(0, 1fr); }
   .talk-item { grid-template-columns: minmax(0, 1fr); gap: 0.3em; }
 }
+
+// Understated feedback accompanying the clinical teaching session.
+.talk-testimonial {
+  margin: 0.7em 0 0 1rem;
+  padding: 0;
+  border: 0;
+  max-width: 48em;
+  font-size: rem(12);
+  font-style: normal;
+  line-height: 1.5;
+  color: $medium-gray-color;
+  p { margin: 0; }
+  footer { margin-top: 0.2em; font-size: rem(11); }
+}
