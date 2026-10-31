@@ -106,7 +106,8 @@
 
   function apply() {
     var active = hovered || (pinned ? [pinned] : []);
-    var focusCards = (!hovered && pinned) ? (cardsBySlug[pinned] || []) : [];
+    /* Hover updates the diagram without hiding the clicked card selection. */
+    var focusCards = pinned ? (cardsBySlug[pinned] || []) : [];
 
     items.forEach(function (el) {
       el.classList.toggle('is-highlighted', active.indexOf(el.getAttribute('data-work')) !== -1);
@@ -117,19 +118,15 @@
     });
   }
 
-  /* Lands the card just below the pinned diagram instead of behind it. */
+  /* Keep the destination card below the sticky navigation. */
   function scrollToCard(card) {
     var header = document.querySelector('.site-header');
     var offset = (header ? header.getBoundingClientRect().height : 0) + 16;
-    if (getComputedStyle(scope).position === 'sticky') {
-      offset += scope.getBoundingClientRect().height;
-    }
     var top = window.pageYOffset + card.getBoundingClientRect().top - offset;
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
 
-  /* The hero link needs the same offset as diagram clicks when the diagram
-     is pinned; a plain fragment jump can leave the first card behind it. */
+  /* Use the same navigation offset for the hero link and diagram clicks. */
   var selectedWorkLink = document.querySelector('.hero-links a[href="#selected-work"]');
   if (selectedWorkLink) {
     selectedWorkLink.addEventListener('click', function (e) {
@@ -169,61 +166,6 @@
       apply();
       if (pinned) scrollToCard(cardsBySlug[slug][0]);
     });
-  });
-
-  /* Pin the diagram only when the viewport can actually fit it plus a whole
-     card underneath. Measured rather than hard-coded, because the diagram's
-     height depends on how many works are listed, and because browser zoom
-     shrinks the effective viewport. */
-  var section = document.querySelector('.venn-section');
-  var pinStart = Infinity;
-
-  function updateCondensedVenn() {
-    var shouldCondense = section && section.classList.contains('can-pin') &&
-                         window.pageYOffset >= pinStart;
-    scope.classList.toggle('is-condensed', shouldCondense);
-  }
-
-  function updatePinning() {
-    if (!section) return;
-    /* Measure the full-size diagram in normal flow. This keeps the decision
-       stable even if a resize occurs while the compact version is pinned. */
-    section.classList.remove('can-pin');
-    scope.classList.remove('is-condensed');
-    scope.style.top = '';
-
-    var header = document.querySelector('.site-header');
-    var headerH = header ? header.getBoundingClientRect().height : 0;
-    var gap = 16;
-    var naturalTop = window.pageYOffset + scope.getBoundingClientRect().top;
-    var needed = headerH + scope.getBoundingClientRect().height + gap +
-                 cards[0].getBoundingClientRect().height;
-    var fits = window.innerWidth >= 841 && window.innerHeight >= needed;
-    section.classList.toggle('can-pin', fits);
-    if (fits) {
-      scope.style.top = headerH + 'px';
-      pinStart = naturalTop - headerH;
-    } else {
-      pinStart = Infinity;
-    }
-    updateCondensedVenn();
-  }
-  updatePinning();
-  window.addEventListener('load', updatePinning);
-
-  var scrollFrame;
-  window.addEventListener('scroll', function () {
-    if (scrollFrame) return;
-    scrollFrame = requestAnimationFrame(function () {
-      scrollFrame = null;
-      updateCondensedVenn();
-    });
-  }, { passive: true });
-
-  var resizeTimer;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(updatePinning, 150);
   });
 
   /* Clicking anywhere that isn't a work label clears the selection, so there

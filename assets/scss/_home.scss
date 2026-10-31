@@ -456,52 +456,6 @@ $venn-width: 320px;
   .venn-node--triple { grid-area: triple; justify-self: start; }
 }
 
-// Pin the diagram while the cards scroll past it, so hovering a card in the
-// second row still shows its highlight.
-//
-// The `can-pin` class and the `top` offset are both set by JS in
-// _includes/projects.html: whether there is room depends on the diagram's
-// height, which grows with the number of works in _data/works.csv, so a fixed
-// media-query threshold would drift out of date. Without room for the diagram
-// AND a full card beneath it, pinning eats the screen and hides the very card
-// the user is pointing at, so it stays in normal flow instead.
-// z-index sits under .site-header (10) so it tucks beneath the nav.
-.venn-section.can-pin .venn-scroll {
-  position: sticky;
-  z-index: 1;
-  background: $base-background-color;
-  padding-bottom: 0.75em;
-}
-
-// Once the Venn reaches the sticky navigation, reduce its footprint so the
-// project cards remain visible beneath it. Its normal, introductory state
-// stays full-size; only the pinned state is condensed.
-.venn-section.can-pin .venn-scroll.is-condensed {
-  padding-bottom: 0.35em;
-
-  .venn-layout {
-    grid-template-columns: minmax(0, 1fr) 255px minmax(0, 1fr);
-    gap: 0.55em 1.5em;
-  }
-
-  .venn-node {
-    padding: 0.45em 0.65em;
-    font-size: rem($areas-font-size - 1);
-    line-height: 1.35;
-  }
-
-  .venn-node--ai,
-  .venn-node--viz,
-  .venn-node--ai-hci {
-    font-size: rem($areas-font-size - 2);
-  }
-
-  .venn-node--triple .venn-node-title {
-    margin-bottom: 0.25em;
-    font-size: 9.5px;
-  }
-}
-
 // Project cards -----------------------------------------------------------
 .selected-work-title {
   margin-top: 3em;
