@@ -27,7 +27,7 @@
       {%- assign work_slugs = work_slugs | append: slug | append: " " -%}
     {%- endfor -%}
   {%- endif -%}
-  <article class="project-card"{% if forloop.first %} id="byhand-cli"{% endif %}{% if work_slugs != "" %} data-works="{{ work_slugs | strip }}"{% endif %}>
+  <article class="project-card" id="{{ project.name | slugify }}"{% if work_slugs != "" %} data-works="{{ work_slugs | strip }}"{% endif %}>
     <div class="project-thumb">
       {%- if project.image and project.image != "" -%}
       <img{% if project.image_fit == "contain" %} class="project-image--contain"{% endif %} src="{{ project.image | prepend: site.baseurl }}" alt="{{ project.name }}" loading="lazy">
@@ -49,7 +49,7 @@
     <div class="project-body">
       <h3 class="project-name">
         {%- if primary_url and primary_url != "" -%}
-        <a class="project-primary-link" href="{{ primary_url | escape }}" target="_blank" rel="noopener">{{ project.name }}</a>
+        <a class="project-primary-link" href="{{ primary_url | escape }}" target="_blank" rel="noopener">{%- if project.logo -%}<img class="project-logo" src="{{ project.logo | prepend: site.baseurl }}" alt="" width="24" height="24">{%- endif -%}{{ project.name }}</a>
         {%- else -%}
         {{ project.name }}
         {%- endif -%}
@@ -130,12 +130,12 @@
 
   /* The hero link needs the same offset as diagram clicks when the diagram
      is pinned; a plain fragment jump can leave the first card behind it. */
-  var selectedWorkLink = document.querySelector('.hero-links a[href="#byhand-cli"]');
+  var selectedWorkLink = document.querySelector('.hero-links a[href="#selected-work"]');
   if (selectedWorkLink) {
     selectedWorkLink.addEventListener('click', function (e) {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
       e.preventDefault();
-      history.pushState(null, '', '#byhand-cli');
+      history.pushState(null, '', '#selected-work');
       scrollToCard(cards[0]);
     });
   }

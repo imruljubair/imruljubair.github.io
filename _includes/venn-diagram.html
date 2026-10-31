@@ -87,7 +87,7 @@
     <div class="venn-node venn-node--triple">
       <span class="venn-node-title">Current focus</span>
       {%- for yg in triple -%}{%- for item in yg.items -%}
-        {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
+        {%- if item.link and item.link != "" -%}<a href="{{ item.link }}" target="_blank" rel="noopener">{%- endif -%}{%- assign work_project = site.data.projects | where: "work", item.name | first -%}<span class="venn-item" data-work="{{ item.name | slugify }}">{% if work_project.logo %}<img class="venn-item-logo" src="{{ work_project.logo | prepend: site.baseurl }}" alt="" width="16" height="16">{% endif %}{{ item.name }} [{{ item.year }}]</span>{%- if item.link and item.link != "" -%}</a>{%- endif -%}
       {%- endfor -%}{%- endfor -%}
     </div>
     {%- endif -%}

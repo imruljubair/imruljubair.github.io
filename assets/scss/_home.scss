@@ -607,6 +607,19 @@ $venn-width: 320px;
   color: $ink-color;
 }
 
+.project-primary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.project-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 // The title links to the primary resource; resource icons stay independent.
 .project-primary-link {
   color: inherit;
@@ -1245,4 +1258,12 @@ $venn-width: 320px;
   color: $medium-gray-color;
   p { margin: 0; }
   footer { margin-top: 0.2em; font-size: rem(11); }
+}
+
+.venn-item-logo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 0.3em;
 }

@@ -27,6 +27,24 @@
 #                  site    → project website or live demo
 # ---------------------------------------------------------------------------
 
+- name: One Small Latte
+  work: One Small Latte
+  logo: /assets/images/projects/latte-logo.png
+  image: /assets/images/projects/latte.png
+  description: >-
+    Explore language-model architecture, training, and tuning through interactive matrices.
+  links:
+    site: https://imruljubair.github.io/Latte/
+
+- name: KeVin
+  work: KeVin
+  logo: /assets/images/projects/kevin-logo.svg
+  image: /assets/images/projects/kevin.png
+  description: >-
+    Inspect the key–value cache and attention matrices as a language model generates tokens.
+  links:
+    site: https://imruljubair.github.io/KeVin/
+
 - name: byhand CLI
   work: byhand CLI
   image: /assets/images/projects/tinyllama-attention.png
