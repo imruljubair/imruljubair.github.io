@@ -61,6 +61,13 @@ section[id] {
     &:hover {
       color: $accent-color;
     }
+
+    &[aria-current="location"] {
+      color: $accent-color;
+      text-decoration: underline;
+      text-underline-offset: 0.4em;
+      text-decoration-thickness: 2px;
+    }
   }
 }
 
